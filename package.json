@@ -1,6 +1,6 @@
 {
-  "name": "vue-material-dashboard-pro",
-  "version": "1.3.0",
+  "name": "kangazone-admin",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
