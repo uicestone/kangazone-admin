@@ -35,12 +35,35 @@ Object.defineProperty(Vue.prototype, "$Chartist", {
   }
 });
 
+Object.defineProperty(Vue.prototype, "$user", {
+  get() {
+    this.$root.user.can = function(cap) {
+      const roleCaps = {
+        admin: ".*",
+        manager: "view-(booking|user|code)"
+      };
+      return (
+        this.roles &&
+        this.roles.some(r => {
+          return cap.match(`^${roleCaps[r]}$`);
+        })
+      );
+    };
+
+    return this.$root.user;
+  },
+  set(val) {
+    this.$root.user = val;
+  }
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
   render: h => h(App),
   router,
   data: {
-    Chartist: Chartist
+    Chartist: Chartist,
+    user: {}
   }
 });

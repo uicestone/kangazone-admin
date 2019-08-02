@@ -57,6 +57,7 @@ const interceptor = vm => {
     // stop request and return 401 response when no token exist except for login request
     if (request.url !== "auth/login" && !window.localStorage.getItem("token")) {
       window.location.hash = "#/login";
+      vm.isLoading = false;
       return Promise.reject("No token exists, login required.");
     }
     return response => {

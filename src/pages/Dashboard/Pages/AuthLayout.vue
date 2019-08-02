@@ -21,7 +21,7 @@
             :class="{ 'off-canvas-sidebar': responsive }"
           >
             <md-list>
-              <md-list-item href="/">
+              <!-- <md-list-item href="/">
                 <md-icon>dashboard</md-icon>
                 Dashboard
               </md-list-item>
@@ -40,7 +40,7 @@
               <md-list-item href="#/lock" @click="linkClick">
                 <md-icon>lock_open</md-icon>
                 lock
-              </md-list-item>
+              </md-list-item> -->
             </md-list>
           </div>
         </div>
@@ -65,7 +65,7 @@
           <div class="container md-offset">
             <nav>
               <ul>
-                <li>
+                <!-- <li>
                   <router-link :to="{ path: '/dashboard' }">Home</router-link>
                 </li>
                 <li>
@@ -82,7 +82,7 @@
                   <a href="#">
                     Blog
                   </a>
-                </li>
+                </li> -->
               </ul>
             </nav>
             <div class="copyright text-center">
@@ -126,13 +126,14 @@ export default {
   computed: {
     setBgImage() {
       let images = {
-        Pricing: "./img/bg-pricing.jpg",
-        Login: "./img/login.jpg",
-        Register: "./img/register.jpg",
-        Lock: "./img/lock.jpg"
+        pricing: "./img/bg-pricing.jpg",
+        login: "./img/login.jpg",
+        register: "./img/register.jpg",
+        lock: "./img/lock.jpg"
       };
+
       return {
-        backgroundImage: `url(${images[this.$route.name]})`
+        backgroundImage: `url(${images[this.$route.path.substr(1)]})`
       };
     },
     setPageClass() {

@@ -230,12 +230,12 @@ let authPages = {
   children: [
     {
       path: "/login",
-      name: "Login",
+      name: "用户登录",
       component: Login
     },
     {
       path: "/register",
-      name: "Register",
+      name: "用户注册",
       component: Register
     },
     {
@@ -245,7 +245,7 @@ let authPages = {
     },
     {
       path: "/lock",
-      name: "Lock",
+      name: "锁定",
       component: Lock
     }
   ]
