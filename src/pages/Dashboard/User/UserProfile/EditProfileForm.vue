@@ -57,8 +57,8 @@
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
-              <label>部门</label>
-              <md-input v-model="user.department" type="text"></md-input>
+              <label>性别</label>
+              <md-input v-model="user.gender" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
@@ -68,6 +68,33 @@
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+              <label>地区</label>
+              <md-input v-model="user.region" type="text"></md-input>
+            </md-field>
+          </div>
+          <div
+            v-if="user.role === 'customer'"
+            class="md-layout-item md-small-size-100 md-size-50"
+          >
+            <md-field>
+              <label>等级</label>
+              <md-input v-model="user.cardType" type="text" disabled></md-input>
+            </md-field>
+          </div>
+          <div
+            v-if="user.role === 'customer'"
+            class="md-layout-item md-small-size-100 md-size-50"
+          >
+            <md-field>
+              <label>余额</label>
+              <md-input v-model="user.credit" type="text" disabled></md-input>
+            </md-field>
+          </div>
+          <div
+            v-if="user.role !== 'customer'"
+            class="md-layout-item md-small-size-100 md-size-50"
+          >
             <md-field>
               <label>权限</label>
               <md-select
@@ -82,7 +109,10 @@
             </md-field>
           </div>
         </div>
-        <div class="md-layout-item md-layout mt-2">
+        <div
+          v-if="user.role !== 'customer'"
+          class="md-layout-item md-layout mt-2"
+        >
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>用户名</label>

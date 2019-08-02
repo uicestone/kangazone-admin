@@ -44,11 +44,13 @@
               <md-table-cell md-label="姓名" md-sort-by="name">{{
                 item.name
               }}</md-table-cell>
-              <md-table-cell md-label="部门">{{
-                item.department
-              }}</md-table-cell>
+              <md-table-cell md-label="性别">{{ item.gender }}</md-table-cell>
+              <md-table-cell md-label="手机">{{ item.mobile }}</md-table-cell>
+              <md-table-cell md-label="地区">{{ item.region }}</md-table-cell>
+              <md-table-cell md-label="等级">{{ item.cardType }}</md-table-cell>
+              <md-table-cell md-label="余额">{{ item.credit }}</md-table-cell>
               <md-table-cell md-label="权限">{{
-                item.roles | roleNames
+                item.role | roleName
               }}</md-table-cell>
               <!-- <md-table-cell md-label="操作">
                 <md-button
@@ -160,12 +162,13 @@ export default {
     }
   },
   filters: {
-    roleNames(roles) {
-      const roleNames = {
+    roleName(role) {
+      const roleName = {
         admin: "管理员",
-        manager: "店长"
+        manager: "店长",
+        customer: "客人"
       };
-      return roles.map(r => roleNames[r]).join("、");
+      return roleName[role];
     }
   }
 };

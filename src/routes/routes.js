@@ -5,7 +5,7 @@ import AuthLayout from "@/pages/Dashboard/Pages/AuthLayout.vue";
 import Dashboard from "@/pages/Dashboard/Dashboard.vue";
 
 // Pages
-const User = () => import("@/pages/Dashboard/Pages/UserProfile.vue");
+const User = () => import("@/pages/Dashboard/User/UserProfile.vue");
 const UserList = () => import("@/pages/Dashboard/User/UserList.vue");
 const Pricing = () => import("@/pages/Dashboard/Pages/Pricing.vue");
 const TimeLine = () => import("@/pages/Dashboard/Pages/TimeLinePage.vue");
