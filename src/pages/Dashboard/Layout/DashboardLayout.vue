@@ -14,7 +14,37 @@
     >
       <user-menu></user-menu>
       <mobile-menu></mobile-menu>
-      <template slot="links">
+      <template slot="links" v-if="inDevelopment">
+        <sidebar-item
+          :link="{ name: '预约管理', icon: 'access_time', path: '/booking' }"
+        >
+        </sidebar-item>
+        <sidebar-item
+          :link="{ name: '用户管理', icon: 'people', path: '/user' }"
+        >
+        </sidebar-item>
+        <sidebar-item
+          :link="{ name: '券码管理', icon: 'style', path: '/code' }"
+        >
+        </sidebar-item>
+        <sidebar-item
+          :link="{ name: '流水明细', icon: 'payment', path: '/payment' }"
+        >
+        </sidebar-item>
+        <sidebar-item
+          :link="{ name: '门店管理', icon: 'store', path: '/store' }"
+        >
+        </sidebar-item>
+        <sidebar-item
+          :link="{ name: '系统配置', icon: 'settings', path: '/config' }"
+        >
+        </sidebar-item>
+        <sidebar-item
+          :link="{ name: '数据统计', icon: 'dashboard', path: '/dashboard' }"
+        >
+        </sidebar-item>
+      </template>
+      <template slot="links" v-if="inDevelopment">
         <sidebar-item
           v-if="$route.meta.rtlActive"
           :link="{
@@ -336,6 +366,11 @@ export default {
   watch: {
     sidebarMini() {
       this.minimizeSidebar();
+    }
+  },
+  computed: {
+    inDevelopment() {
+      return process.env.NODE_ENV === "development";
     }
   }
 };
