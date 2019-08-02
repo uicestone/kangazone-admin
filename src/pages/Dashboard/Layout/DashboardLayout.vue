@@ -300,10 +300,10 @@ export default {
   },
   data() {
     return {
-      sidebarBackgroundColor: "black",
-      sidebarBackground: "green",
+      sidebarBackgroundColor: "white",
+      sidebarBackground: "purple",
       sidebarBackgroundImage: "./img/sidebar-2.jpg",
-      sidebarMini: true,
+      sidebarMini: false,
       sidebarImg: true
     };
   },
