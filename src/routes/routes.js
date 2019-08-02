@@ -5,44 +5,50 @@ import AuthLayout from "@/pages/Dashboard/Pages/AuthLayout.vue";
 import Dashboard from "@/pages/Dashboard/Dashboard.vue";
 
 // Pages
-import User from "@/pages/Dashboard/Pages/UserProfile.vue";
-import Pricing from "@/pages/Dashboard/Pages/Pricing.vue";
-import TimeLine from "@/pages/Dashboard/Pages/TimeLinePage.vue";
-import RtlSupport from "@/pages/Dashboard/Pages/RtlSupport.vue";
-import Login from "@/pages/Dashboard/Pages/Login.vue";
-import Register from "@/pages/Dashboard/Pages/Register.vue";
-import Lock from "@/pages/Dashboard/Pages/Lock.vue";
+const User = () => import("@/pages/Dashboard/Pages/UserProfile.vue");
+const UserList = () => import("@/pages/Dashboard/User/UserList.vue");
+const Pricing = () => import("@/pages/Dashboard/Pages/Pricing.vue");
+const TimeLine = () => import("@/pages/Dashboard/Pages/TimeLinePage.vue");
+const RtlSupport = () => import("@/pages/Dashboard/Pages/RtlSupport.vue");
+const Login = () => import("@/pages/Dashboard/Pages/Login.vue");
+const Register = () => import("@/pages/Dashboard/Pages/Register.vue");
+const Lock = () => import("@/pages/Dashboard/Pages/Lock.vue");
 
 // Components pages
-import Buttons from "@/pages/Dashboard/Components/Buttons.vue";
-import GridSystem from "@/pages/Dashboard/Components/GridSystem.vue";
-import Panels from "@/pages/Dashboard/Components/Panels.vue";
-import SweetAlert from "@/pages/Dashboard/Components/SweetAlert.vue";
-import Notifications from "@/pages/Dashboard/Components/Notifications.vue";
-import Icons from "@/pages/Dashboard/Components/Icons.vue";
-import Typography from "@/pages/Dashboard/Components/Typography.vue";
+const Buttons = () => import("@/pages/Dashboard/Components/Buttons.vue");
+const GridSystem = () => import("@/pages/Dashboard/Components/GridSystem.vue");
+const Panels = () => import("@/pages/Dashboard/Components/Panels.vue");
+const SweetAlert = () => import("@/pages/Dashboard/Components/SweetAlert.vue");
+const Notifications = () =>
+  import("@/pages/Dashboard/Components/Notifications.vue");
+const Icons = () => import("@/pages/Dashboard/Components/Icons.vue");
+const Typography = () => import("@/pages/Dashboard/Components/Typography.vue");
 
 // Forms pages
-import RegularForms from "@/pages/Dashboard/Forms/RegularForms.vue";
-import ExtendedForms from "@/pages/Dashboard/Forms/ExtendedForms.vue";
-import ValidationForms from "@/pages/Dashboard/Forms/ValidationForms.vue";
-import Wizard from "@/pages/Dashboard/Forms/Wizard.vue";
+const RegularForms = () => import("@/pages/Dashboard/Forms/RegularForms.vue");
+const ExtendedForms = () => import("@/pages/Dashboard/Forms/ExtendedForms.vue");
+const ValidationForms = () =>
+  import("@/pages/Dashboard/Forms/ValidationForms.vue");
+const Wizard = () => import("@/pages/Dashboard/Forms/Wizard.vue");
 
 // TableList pages
-import RegularTables from "@/pages/Dashboard/Tables/RegularTables.vue";
-import ExtendedTables from "@/pages/Dashboard/Tables/ExtendedTables.vue";
-import PaginatedTables from "@/pages/Dashboard/Tables/PaginatedTables.vue";
+const RegularTables = () =>
+  import("@/pages/Dashboard/Tables/RegularTables.vue");
+const ExtendedTables = () =>
+  import("@/pages/Dashboard/Tables/ExtendedTables.vue");
+const PaginatedTables = () =>
+  import("@/pages/Dashboard/Tables/PaginatedTables.vue");
 
 // Maps pages
-import GoogleMaps from "@/pages/Dashboard/Maps/GoogleMaps.vue";
-import FullScreenMap from "@/pages/Dashboard/Maps/FullScreenMap.vue";
-import VectorMaps from "@/pages/Dashboard/Maps/VectorMaps.vue";
+const GoogleMaps = () => import("@/pages/Dashboard/Maps/GoogleMaps.vue");
+const FullScreenMap = () => import("@/pages/Dashboard/Maps/FullScreenMap.vue");
+const VectorMaps = () => import("@/pages/Dashboard/Maps/VectorMaps.vue");
 
 // Calendar
-import Calendar from "@/pages/Dashboard/Calendar.vue";
+const Calendar = () => import("@/pages/Dashboard/Calendar.vue");
 // Charts
-import Charts from "@/pages/Dashboard/Charts.vue";
-import Widgets from "@/pages/Dashboard/Widgets.vue";
+const Charts = () => import("@/pages/Dashboard/Charts.vue");
+const Widgets = () => import("@/pages/Dashboard/Widgets.vue");
 
 let componentsMenu = {
   path: "/components",
@@ -196,6 +202,27 @@ let pagesMenu = {
   ]
 };
 
+let userMenu = {
+  path: "/user",
+  component: DashboardLayout,
+  redirect: "/user/index",
+  children: [
+    {
+      path: "index",
+      name: "用户列表",
+      component: UserList,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: ":id",
+      name: "用户详情",
+      component: User
+    }
+  ]
+};
+
 let authPages = {
   path: "/",
   component: AuthLayout,
@@ -235,6 +262,7 @@ const routes = [
   tablesMenu,
   mapsMenu,
   pagesMenu,
+  userMenu,
   authPages,
   {
     path: "/",

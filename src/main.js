@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import VueResource from "vue-resource";
 import DashboardPlugin from "./material-dashboard";
 
 // Plugins
@@ -11,6 +12,7 @@ import routes from "./routes/routes";
 
 // plugin setup
 Vue.use(VueRouter);
+Vue.use(VueResource);
 Vue.use(DashboardPlugin);
 
 // configure router
