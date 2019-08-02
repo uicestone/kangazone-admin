@@ -42,9 +42,8 @@
       </nav>
       <div class="copyright text-center">
         &copy; {{ new Date().getFullYear() }}
-        <a href="https://www.creative-tim.com/?ref=mdp-vuejs" target="_blank"
-          >Creative Tim</a
-        >, made with <i class="fa fa-heart heart"></i> for a better web
+        <a href="https://codeispoetry.tech" target="_blank">诗序软件</a>
+        倾力打造
       </div>
     </div>
   </footer>
