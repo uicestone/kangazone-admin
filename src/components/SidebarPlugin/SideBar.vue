@@ -7,24 +7,20 @@
     :style="sidebarStyle"
   >
     <div class="logo">
-      <a
-        href="https://www.creative-tim.com"
-        class="simple-text logo-mini"
-        target="_blank"
-      >
+      <a href="https://admin.kangazone.com" class="simple-text" target="_blank">
         <div class="logo-img">
           <img :src="logo" />
         </div>
       </a>
-      <a
+      <!-- <a
         href="https://www.creative-tim.com"
         class="simple-text logo-normal"
         target="_blank"
       >
         <template v-if="$route.meta.rtlActive">{{ rtlTitle }}</template>
         <template v-else>{{ title }}</template>
-      </a>
-      <div class="navbar-minimize">
+      </a> -->
+      <!-- <div class="navbar-minimize">
         <md-button
           id="minimizeSidebar"
           class="md-round md-just-icon md-transparent"
@@ -38,7 +34,7 @@
             >view_list</i
           >
         </md-button>
-      </div>
+      </div> -->
     </div>
     <div class="sidebar-wrapper" ref="sidebarScrollArea">
       <slot></slot>
@@ -67,7 +63,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Vue MD PRO"
+      default: "Kanga Zone"
     },
     rtlTitle: {
       type: String,
@@ -103,7 +99,7 @@ export default {
     },
     logo: {
       type: String,
-      default: "./img/vue-logo.png"
+      default: "./img/logo-384.png"
     },
     sidebarLinks: {
       type: Array,
