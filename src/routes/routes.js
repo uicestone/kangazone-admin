@@ -7,6 +7,10 @@ import Dashboard from "@/pages/Dashboard/Dashboard.vue";
 // Pages
 const User = () => import("@/pages/Dashboard/User/UserProfile.vue");
 const UserList = () => import("@/pages/Dashboard/User/UserList.vue");
+// const Booking = () => import("@/pages/Dashboard/Booking/BookingDetail.vue");
+const BookingList = () => import("@/pages/Dashboard/Booking/BookingList.vue");
+// const Payment = () => import("@/pages/Dashboard/Payment/PaymentDetail.vue");
+const PaymentList = () => import("@/pages/Dashboard/Payment/PaymentList.vue");
 const Pricing = () => import("@/pages/Dashboard/Pages/Pricing.vue");
 const TimeLine = () => import("@/pages/Dashboard/Pages/TimeLinePage.vue");
 const RtlSupport = () => import("@/pages/Dashboard/Pages/RtlSupport.vue");
@@ -202,6 +206,48 @@ let pagesMenu = {
   ]
 };
 
+let bookingMenu = {
+  path: "/booking",
+  component: DashboardLayout,
+  redirect: "/booking/index",
+  children: [
+    {
+      path: "index",
+      name: "预约列表",
+      component: BookingList,
+      meta: {
+        keepAlive: true
+      }
+    }
+    // {
+    //   path: ":id",
+    //   name: "用户详情",
+    //   component: Booking
+    // }
+  ]
+};
+
+let paymentMenu = {
+  path: "/payment",
+  component: DashboardLayout,
+  redirect: "/payment/index",
+  children: [
+    {
+      path: "index",
+      name: "流水明细",
+      component: PaymentList,
+      meta: {
+        keepAlive: true
+      }
+    }
+    // {
+    //   path: ":id",
+    //   name: "用户详情",
+    //   component: Payment
+    // }
+  ]
+};
+
 let userMenu = {
   path: "/user",
   component: DashboardLayout,
@@ -262,6 +308,8 @@ const routes = [
   tablesMenu,
   mapsMenu,
   pagesMenu,
+  bookingMenu,
+  paymentMenu,
   userMenu,
   authPages,
   {
