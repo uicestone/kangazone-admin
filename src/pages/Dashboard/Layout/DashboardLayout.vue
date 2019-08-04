@@ -32,7 +32,7 @@
         >
         </sidebar-item>
         <sidebar-item
-          :link="{ name: '门店管理', icon: 'store', path: '/store' }"
+          :link="{ name: '场馆管理', icon: 'store', path: '/store' }"
         >
         </sidebar-item>
         <sidebar-item

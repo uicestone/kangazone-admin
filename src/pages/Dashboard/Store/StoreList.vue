@@ -6,7 +6,7 @@
           <div class="card-icon">
             <md-icon>supervisor_account</md-icon>
           </div>
-          <h4 class="title">券码列表</h4>
+          <h4 class="title">场馆列表</h4>
         </md-card-header>
         <md-card-content>
           <md-table
@@ -30,7 +30,7 @@
 
               <div class="">
                 <md-button class="md-primary" @click="showCreate">
-                  添加券码
+                  添加场馆
                 </md-button>
               </div>
             </md-table-toolbar>
@@ -41,20 +41,14 @@
               slot-scope="{ item }"
               @click="showDetail(item)"
             >
-              <md-table-cell md-label="类型" md-sort-by="type">{{
-                item.type
+              <md-table-cell md-label="名称" md-sort-by="name">{{
+                item.name
               }}</md-table-cell>
-              <md-table-cell md-label="时长" md-sort-by="hours">{{
-                item.hours
+              <md-table-cell md-label="电话" md-sort-by="phone">{{
+                item.phone
               }}</md-table-cell>
-              <md-table-cell md-label="过期时间" md-sort-by="expiresAt">{{
-                item.expiresAt
-              }}</md-table-cell>
-              <md-table-cell md-label="客户" md-sort-by="customer.name">{{
-                item.customer.name
-              }}</md-table-cell>
-              <md-table-cell md-label="已使用" md-sort-by="used">{{
-                item.used
+              <md-table-cell md-label="地址" md-sort-by="address">{{
+                item.address
               }}</md-table-cell>
               <!-- <md-table-cell md-label="操作">
                 <md-button
@@ -85,7 +79,7 @@
 
 <script>
 import { Pagination } from "@/components";
-import { Code } from "@/resources";
+import { Store } from "@/resources";
 
 export default {
   components: {
@@ -133,15 +127,15 @@ export default {
   },
   methods: {
     async queryData() {
-      const response = await Code.get(this.query);
+      const response = await Store.get(this.query);
       this.queriedData = response.body;
       this.pagination.total = Number(response.headers.map["items-total"][0]);
     },
     showDetail(item) {
-      this.$router.push(`/code/${item.id}`);
+      this.$router.push(`/store/${item.id}`);
     },
     showCreate() {
-      this.$router.push("/code/add");
+      this.$router.push("/store/add");
     },
     noop() {}
   },

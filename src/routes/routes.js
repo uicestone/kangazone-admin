@@ -13,6 +13,8 @@ const BookingList = () => import("@/pages/Dashboard/Booking/BookingList.vue");
 const CodeList = () => import("@/pages/Dashboard/Code/CodeList.vue");
 // const Payment = () => import("@/pages/Dashboard/Payment/PaymentDetail.vue");
 const PaymentList = () => import("@/pages/Dashboard/Payment/PaymentList.vue");
+// const Store = () => import("@/pages/Dashboard/Store/StoreDetail.vue");
+const StoreList = () => import("@/pages/Dashboard/Store/StoreList.vue");
 const Pricing = () => import("@/pages/Dashboard/Pages/Pricing.vue");
 const TimeLine = () => import("@/pages/Dashboard/Pages/TimeLinePage.vue");
 const RtlSupport = () => import("@/pages/Dashboard/Pages/RtlSupport.vue");
@@ -271,6 +273,27 @@ let paymentMenu = {
   ]
 };
 
+let storeMenu = {
+  path: "/store",
+  component: DashboardLayout,
+  redirect: "/store/index",
+  children: [
+    {
+      path: "index",
+      name: "场馆明细",
+      component: StoreList,
+      meta: {
+        keepAlive: true
+      }
+    }
+    // {
+    //   path: ":id",
+    //   name: "场馆详情",
+    //   component: Store
+    // }
+  ]
+};
+
 let userMenu = {
   path: "/user",
   component: DashboardLayout,
@@ -334,6 +357,7 @@ const routes = [
   bookingMenu,
   codeMenu,
   paymentMenu,
+  storeMenu,
   userMenu,
   authPages,
   {
