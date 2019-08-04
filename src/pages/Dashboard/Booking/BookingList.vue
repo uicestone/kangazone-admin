@@ -4,7 +4,7 @@
       <md-card>
         <md-card-header class="md-card-header-icon md-card-header-primary">
           <div class="card-icon">
-            <md-icon>supervisor_account</md-icon>
+            <md-icon>timer</md-icon>
           </div>
           <h4 class="title">预约列表</h4>
         </md-card-header>
@@ -54,7 +54,7 @@
                 item.checkInAt
               }}</md-table-cell>
               <md-table-cell md-label="类型" md-sort-by="type">{{
-                item.type
+                item.type | bookingTypeName
               }}</md-table-cell>
               <md-table-cell md-label="时长" md-sort-by="hours">{{
                 item.hours
@@ -66,7 +66,10 @@
                 item.socksCount
               }}</md-table-cell>
               <md-table-cell md-label="状态" md-sort-by="status">{{
-                item.status
+                item.status | bookingStatusName
+              }}</md-table-cell>
+              <md-table-cell md-label="创建时间" md-sort-by="createdAt">{{
+                item.createdAt | date
               }}</md-table-cell>
               <!-- <md-table-cell md-label="操作">
                 <md-button
@@ -105,8 +108,8 @@ export default {
   },
   data() {
     return {
-      currentSort: "name",
-      currentSortOrder: "asc",
+      currentSort: "createdAt",
+      currentSortOrder: "desc",
       pagination: {
         perPage: 10,
         currentPage: 1,

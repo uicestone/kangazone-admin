@@ -57,6 +57,27 @@ Object.defineProperty(Vue.prototype, "$user", {
   }
 });
 
+Object.defineProperty(Vue.prototype, "$bookingTypeNames", {
+  get() {
+    return {
+      play: "计时自由探险",
+      party: "派对和聚会"
+    };
+  }
+});
+
+Object.defineProperty(Vue.prototype, "$bookingStatusNames", {
+  get() {
+    return {
+      PENDING: "待付款",
+      BOOKED: "已确认",
+      IN_SERVICE: "进行中",
+      FINISHED: "已完成",
+      CANCELED: "已取消"
+    };
+  }
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: "#app",

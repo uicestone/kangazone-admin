@@ -44,13 +44,26 @@
               <md-table-cell md-label="姓名" md-sort-by="name">{{
                 item.name
               }}</md-table-cell>
-              <md-table-cell md-label="性别">{{ item.gender }}</md-table-cell>
-              <md-table-cell md-label="手机">{{ item.mobile }}</md-table-cell>
-              <md-table-cell md-label="地区">{{ item.region }}</md-table-cell>
-              <md-table-cell md-label="等级">{{ item.cardType }}</md-table-cell>
-              <md-table-cell md-label="余额">{{ item.credit }}</md-table-cell>
-              <md-table-cell md-label="权限">{{
+              <md-table-cell md-label="性别" md-sort-by="gender">{{
+                item.gender
+              }}</md-table-cell>
+              <md-table-cell md-label="手机" md-sort-by="mobile">{{
+                item.mobile
+              }}</md-table-cell>
+              <md-table-cell md-label="地区" md-sort-by="region">{{
+                item.region
+              }}</md-table-cell>
+              <md-table-cell md-label="等级" md-sort-by="cardType">{{
+                item.cardType
+              }}</md-table-cell>
+              <md-table-cell md-label="余额" md-sort-by="credit">{{
+                item.credit | currency
+              }}</md-table-cell>
+              <md-table-cell md-label="权限" md-sort-by="role">{{
                 item.role | roleName
+              }}</md-table-cell>
+              <md-table-cell md-label="注册时间" md-sort-by="createdAt">{{
+                item.createdAt | date
               }}</md-table-cell>
               <!-- <md-table-cell md-label="操作">
                 <md-button
@@ -89,8 +102,8 @@ export default {
   },
   data() {
     return {
-      currentSort: "name",
-      currentSortOrder: "asc",
+      currentSort: "createdAt",
+      currentSortOrder: "desc",
       pagination: {
         perPage: 10,
         currentPage: 1,

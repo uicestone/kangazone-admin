@@ -4,7 +4,7 @@
       <md-card>
         <md-card-header class="md-card-header-icon md-card-header-primary">
           <div class="card-icon">
-            <md-icon>supervisor_account</md-icon>
+            <md-icon>payment</md-icon>
           </div>
           <h4 class="title">流水明细</h4>
         </md-card-header>
@@ -54,6 +54,9 @@
               }}</md-table-cell>
               <md-table-cell md-label="通道" md-sort-by="gateway">{{
                 item.gateway
+              }}</md-table-cell>
+              <md-table-cell md-label="创建时间" md-sort-by="createdAt">{{
+                item.createdAt | date
               }}</md-table-cell>
               <!-- <md-table-cell md-label="操作">
                 <md-button

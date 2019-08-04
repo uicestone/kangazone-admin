@@ -4,7 +4,7 @@
       <md-card>
         <md-card-header class="md-card-header-icon md-card-header-primary">
           <div class="card-icon">
-            <md-icon>supervisor_account</md-icon>
+            <md-icon>style</md-icon>
           </div>
           <h4 class="title">券码列表</h4>
         </md-card-header>
@@ -42,19 +42,22 @@
               @click="showDetail(item)"
             >
               <md-table-cell md-label="类型" md-sort-by="type">{{
-                item.type
+                item.type | bookingTypeName
               }}</md-table-cell>
-              <md-table-cell md-label="时长" md-sort-by="hours">{{
-                item.hours
-              }}</md-table-cell>
+              <md-table-cell md-label="时长" md-sort-by="hours"
+                >{{ item.hours }}小时</md-table-cell
+              >
               <md-table-cell md-label="过期时间" md-sort-by="expiresAt">{{
-                item.expiresAt
+                item.expiresAt || "-"
               }}</md-table-cell>
               <md-table-cell md-label="客户" md-sort-by="customer.name">{{
-                item.customer.name
+                item.customer ? item.customer.name : "未绑定"
               }}</md-table-cell>
               <md-table-cell md-label="已使用" md-sort-by="used">{{
-                item.used
+                item.used ? "是" : "否"
+              }}</md-table-cell>
+              <md-table-cell md-label="创建时间" md-sort-by="createdAt">{{
+                item.createdAt | date
               }}</md-table-cell>
               <!-- <md-table-cell md-label="操作">
                 <md-button
@@ -93,8 +96,8 @@ export default {
   },
   data() {
     return {
-      currentSort: "name",
-      currentSortOrder: "asc",
+      currentSort: "_id",
+      currentSortOrder: "desc",
       pagination: {
         perPage: 10,
         currentPage: 1,

@@ -37,6 +37,16 @@ export default {
       }
       return value.toFixed(digits || 0);
     });
+    Vue.filter("bookingTypeName", value => {
+      return this.$bookingTypeNames[value];
+    });
+    Vue.filter("bookingStatusName", value => {
+      return this.$bookingStatusNames[value];
+    });
+    Vue.filter("currency", value => {
+      if (value === undefined) return "-";
+      return "¥ " + value.toFixed(2);
+    });
     try {
       this.$user = await this.auth();
     } catch (e) {

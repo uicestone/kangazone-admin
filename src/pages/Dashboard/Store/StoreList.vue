@@ -4,7 +4,7 @@
       <md-card>
         <md-card-header class="md-card-header-icon md-card-header-primary">
           <div class="card-icon">
-            <md-icon>supervisor_account</md-icon>
+            <md-icon>store</md-icon>
           </div>
           <h4 class="title">场馆列表</h4>
         </md-card-header>
