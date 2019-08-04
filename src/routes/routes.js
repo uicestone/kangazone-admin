@@ -9,6 +9,8 @@ const User = () => import("@/pages/Dashboard/User/UserProfile.vue");
 const UserList = () => import("@/pages/Dashboard/User/UserList.vue");
 // const Booking = () => import("@/pages/Dashboard/Booking/BookingDetail.vue");
 const BookingList = () => import("@/pages/Dashboard/Booking/BookingList.vue");
+// const Code = () => import("@/pages/Dashboard/Code/CodeDetail.vue");
+const CodeList = () => import("@/pages/Dashboard/Code/CodeList.vue");
 // const Payment = () => import("@/pages/Dashboard/Payment/PaymentDetail.vue");
 const PaymentList = () => import("@/pages/Dashboard/Payment/PaymentList.vue");
 const Pricing = () => import("@/pages/Dashboard/Pages/Pricing.vue");
@@ -221,8 +223,29 @@ let bookingMenu = {
     }
     // {
     //   path: ":id",
-    //   name: "用户详情",
+    //   name: "预约详情",
     //   component: Booking
+    // }
+  ]
+};
+
+let codeMenu = {
+  path: "/code",
+  component: DashboardLayout,
+  redirect: "/code/index",
+  children: [
+    {
+      path: "index",
+      name: "券码列表",
+      component: CodeList,
+      meta: {
+        keepAlive: true
+      }
+    }
+    // {
+    //   path: ":id",
+    //   name: "券码详情",
+    //   component: Code
     // }
   ]
 };
@@ -242,7 +265,7 @@ let paymentMenu = {
     }
     // {
     //   path: ":id",
-    //   name: "用户详情",
+    //   name: "流水详情",
     //   component: Payment
     // }
   ]
@@ -309,6 +332,7 @@ const routes = [
   mapsMenu,
   pagesMenu,
   bookingMenu,
+  codeMenu,
   paymentMenu,
   userMenu,
   authPages,
