@@ -56,9 +56,9 @@
               <md-table-cell md-label="类型" md-sort-by="type">{{
                 item.type | bookingTypeName
               }}</md-table-cell>
-              <md-table-cell md-label="时长" md-sort-by="hours">{{
-                item.hours
-              }}</md-table-cell>
+              <md-table-cell md-label="时长" md-sort-by="hours"
+                >{{ item.hours }}小时</md-table-cell
+              >
               <md-table-cell md-label="人数" md-sort-by="membersCount">{{
                 item.membersCount
               }}</md-table-cell>

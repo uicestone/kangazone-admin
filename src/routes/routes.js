@@ -7,7 +7,7 @@ import Dashboard from "@/pages/Dashboard/Dashboard.vue";
 // Pages
 const User = () => import("@/pages/Dashboard/User/UserProfile.vue");
 const UserList = () => import("@/pages/Dashboard/User/UserList.vue");
-// const Booking = () => import("@/pages/Dashboard/Booking/BookingDetail.vue");
+const Booking = () => import("@/pages/Dashboard/Booking/BookingDetail.vue");
 const BookingList = () => import("@/pages/Dashboard/Booking/BookingList.vue");
 // const Code = () => import("@/pages/Dashboard/Code/CodeDetail.vue");
 const CodeList = () => import("@/pages/Dashboard/Code/CodeList.vue");
@@ -222,12 +222,12 @@ let bookingMenu = {
       meta: {
         keepAlive: true
       }
+    },
+    {
+      path: ":id",
+      name: "预约详情",
+      component: Booking
     }
-    // {
-    //   path: ":id",
-    //   name: "预约详情",
-    //   component: Booking
-    // }
   ]
 };
 

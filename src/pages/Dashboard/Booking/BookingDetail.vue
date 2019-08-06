@@ -1,0 +1,208 @@
+<template>
+  <div class="content">
+    <div class="md-layout">
+      <div class="md-layout-item md-medium-size-100 md-size-66 mx-auto">
+        <form @submit.prevent="save">
+          <md-card>
+            <md-card-header class="md-card-header-icon md-card-header-primary">
+              <div class="card-icon">
+                <md-icon>timer</md-icon>
+              </div>
+              <h4 class="title">{{ booking.id.substr(-4).toUpperCase() }}</h4>
+            </md-card-header>
+
+            <md-card-content class="md-layout">
+              <div class="md-layout-item md-small-size-100 md-size-25">
+                <md-field>
+                  <label>类型</label>
+                  <md-select v-model="booking.type" @keydown.enter.prevent="">
+                    <md-option
+                      v-for="(name, type) in $bookingTypeNames"
+                      :key="type"
+                      :value="type"
+                      >{{ name }}</md-option
+                    >
+                  </md-select>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-small-size-100 md-size-25">
+                <md-field>
+                  <label>状态</label>
+                  <md-select v-model="booking.status" @keydown.enter.prevent="">
+                    <md-option
+                      v-for="(name, status) in $bookingStatusNames"
+                      :key="status"
+                      :value="status"
+                      >{{ name }}</md-option
+                    >
+                  </md-select>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-small-size-100 md-size-25">
+                <md-autocomplete
+                  v-model="customerSearchTerm"
+                  :md-options="customers"
+                  @md-changed="getCustomers"
+                  @md-opened="getCustomers"
+                  @md-selected="selectCustomer"
+                >
+                  <label>客户</label>
+                  <template slot="md-autocomplete-item" slot-scope="{ item }">
+                    {{ item.name }}
+                  </template>
+                </md-autocomplete>
+              </div>
+              <div class="md-layout-item md-small-size-100 md-size-25">
+                <md-autocomplete
+                  v-model="storeSearchTerm"
+                  :md-options="stores"
+                  @md-changed="getStores"
+                  @md-opened="getStores"
+                  @md-selected="selectStore"
+                >
+                  <label>场馆</label>
+                  <template slot="md-autocomplete-item" slot-scope="{ item }">
+                    {{ item.name }}
+                  </template>
+                </md-autocomplete>
+              </div>
+              <div
+                class="md-layout-item md-layout md-small-size-100 md-size-50 p-0"
+              >
+                <div class="md-layout-item md-small-size-100 md-size-66">
+                  <!-- <md-field :class="{ 'md-has-value': booking.date }">
+                  <label>日期</label>
+                  <datetime
+                    v-model="booking.date"
+                    input-class="md-input"
+                    type="date"
+                    auto
+                    format="yyyy-LL-dd"
+                    value-zone="Asia/Shanghai"
+                    :phrases="{ ok: '确定', cancel: '取消' }"
+                  />
+                </md-field> -->
+                  <md-datepicker
+                    v-model="booking.date"
+                    :md-model-type="String"
+                    md-immediately
+                  />
+                </div>
+                <div class="md-layout-item md-small-size-100 md-size-33">
+                  <md-field>
+                    <label>时间</label>
+                    <md-input v-model="booking.checkInAt"></md-input>
+                  </md-field>
+                </div>
+              </div>
+              <div
+                class="md-layout-item md-layout md-small-size-100 md-size-50"
+              >
+                <div class="md-layout-item md-small-size-100 md-size-33 p-0">
+                  <md-field>
+                    <label>时长</label>
+                    <md-input v-model="booking.hours"></md-input>
+                  </md-field>
+                </div>
+                <div class="md-layout-item md-small-size-100 md-size-33 p-0">
+                  <md-field>
+                    <label>人数</label>
+                    <md-input v-model="booking.membersCount"></md-input>
+                  </md-field>
+                </div>
+                <div class="md-layout-item md-small-size-100 md-size-33 p-0">
+                  <md-field>
+                    <label>袜子数</label>
+                    <md-input v-model="booking.socksCount"></md-input>
+                  </md-field>
+                </div>
+              </div>
+              <div class="md-layout-item md-small-size-100">
+                <md-field>
+                  <label>备注</label>
+                  <md-textarea
+                    v-model="booking.remarks"
+                    class="no-padding"
+                  ></md-textarea>
+                </md-field>
+              </div>
+              <div class="md-layout-item md-size-100 text-right">
+                <md-button type="submit" class="md-raised md-primary mt-4"
+                  >保存</md-button
+                >
+              </div>
+            </md-card-content>
+          </md-card>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+// import { Datetime } from "vue-datetime";
+// import "vue-datetime/dist/vue-datetime.css";
+import { Booking, User } from "@/resources";
+
+export default {
+  // components: { Datetime },
+  data() {
+    return {
+      booking: { id: "", customer: {} },
+      customers: [],
+      customerSearchTerm: null,
+      stores: [],
+      storeSearchTerm: null
+    };
+  },
+  methods: {
+    async save() {
+      if (this.$route.params.id === "add") {
+        this.booking = (await Booking.save(this.booking)).body;
+      } else {
+        this.booking = (await Booking.update(
+          { id: this.$route.params.id },
+          this.booking
+        )).body;
+      }
+      this.$notify({
+        message: "保存成功",
+        icon: "check",
+        horizontalAlign: "center",
+        verticalAlign: "bottom",
+        type: "success"
+      });
+      if (this.$route.params.id === "add") {
+        this.$router.replace(`/booking/${this.booking.id}`);
+      }
+    },
+    async getCustomers(q) {
+      this.customers = (await User.get({ keyword: q })).body;
+    },
+    selectCustomer(c, b, a) {
+      this.booking.customer = c;
+      this.customerSearchTerm = c.name;
+    },
+    async getStores(q) {
+      this.stores = (await User.get({ keyword: q })).body;
+    },
+    selectStore(c, b, a) {
+      this.booking.store = c;
+      this.storeSearchTerm = c.name;
+    }
+  },
+  async mounted() {
+    if (this.$route.params.id !== "add") {
+      this.booking = (await Booking.get({ id: this.$route.params.id })).body;
+      if (this.booking.customer)
+        this.customerSearchTerm = this.booking.customer.name;
+      if (this.booking.store) this.storeSearchTerm = this.booking.store.name;
+    }
+  }
+};
+</script>
+<style lang="scss">
+.md-datepicker-body .md-dialog-actions {
+  display: none;
+}
+</style>
