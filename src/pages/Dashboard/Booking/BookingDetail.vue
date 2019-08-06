@@ -8,7 +8,7 @@
               <div class="card-icon">
                 <md-icon>timer</md-icon>
               </div>
-              <h4 class="title">{{ booking.id.substr(-4).toUpperCase() }}</h4>
+              <h4 class="title">{{ booking.id.substr(-6).toUpperCase() }}</h4>
             </md-card-header>
 
             <md-card-content class="md-layout">
@@ -41,9 +41,7 @@
               <div class="md-layout-item md-small-size-100 md-size-25">
                 <md-autocomplete
                   v-model="customerSearchTerm"
-                  :md-options="customers"
-                  @md-changed="getCustomers"
-                  @md-opened="getCustomers"
+                  :md-options="getCustomers(customerSearchTerm)"
                   @md-selected="selectCustomer"
                 >
                   <label>客户</label>
@@ -55,9 +53,7 @@
               <div class="md-layout-item md-small-size-100 md-size-25">
                 <md-autocomplete
                   v-model="storeSearchTerm"
-                  :md-options="stores"
-                  @md-changed="getStores"
-                  @md-opened="getStores"
+                  :md-options="getStores(storeSearchTerm)"
                   @md-selected="selectStore"
                 >
                   <label>场馆</label>
@@ -96,24 +92,33 @@
                 </div>
               </div>
               <div
-                class="md-layout-item md-layout md-small-size-100 md-size-50"
+                class="md-layout-item md-layout md-small-size-100 md-size-50 p-0"
               >
-                <div class="md-layout-item md-small-size-100 md-size-33 p-0">
+                <div class="md-layout-item md-small-size-100 md-size-33">
                   <md-field>
                     <label>时长</label>
-                    <md-input v-model="booking.hours"></md-input>
+                    <md-input v-model="booking.hours" type="number"></md-input>
+                    <span class="md-suffix">小时</span>
                   </md-field>
                 </div>
-                <div class="md-layout-item md-small-size-100 md-size-33 p-0">
+                <div class="md-layout-item md-small-size-100 md-size-33">
                   <md-field>
                     <label>人数</label>
-                    <md-input v-model="booking.membersCount"></md-input>
+                    <md-input
+                      v-model="booking.membersCount"
+                      type="number"
+                    ></md-input>
+                    <span class="md-suffix">位</span>
                   </md-field>
                 </div>
-                <div class="md-layout-item md-small-size-100 md-size-33 p-0">
+                <div class="md-layout-item md-small-size-100 md-size-33">
                   <md-field>
                     <label>袜子数</label>
-                    <md-input v-model="booking.socksCount"></md-input>
+                    <md-input
+                      v-model="booking.socksCount"
+                      type="number"
+                    ></md-input>
+                    <span class="md-suffix">双</span>
                   </md-field>
                 </div>
               </div>
@@ -142,7 +147,7 @@
 <script>
 // import { Datetime } from "vue-datetime";
 // import "vue-datetime/dist/vue-datetime.css";
-import { Booking, User } from "@/resources";
+import { Booking, Store, User } from "@/resources";
 
 export default {
   // components: { Datetime },
@@ -150,9 +155,9 @@ export default {
     return {
       booking: { id: "", customer: {} },
       customers: [],
-      customerSearchTerm: null,
+      customerSearchTerm: "",
       stores: [],
-      storeSearchTerm: null
+      storeSearchTerm: ""
     };
   },
   methods: {
@@ -178,13 +183,15 @@ export default {
     },
     async getCustomers(q) {
       this.customers = (await User.get({ keyword: q })).body;
+      return this.customers;
     },
     selectCustomer(c, b, a) {
       this.booking.customer = c;
       this.customerSearchTerm = c.name;
     },
     async getStores(q) {
-      this.stores = (await User.get({ keyword: q })).body;
+      this.stores = (await Store.get({ keyword: q })).body;
+      return this.stores;
     },
     selectStore(c, b, a) {
       this.booking.store = c;
@@ -204,5 +211,8 @@ export default {
 <style lang="scss">
 .md-datepicker-body .md-dialog-actions {
   display: none;
+}
+.md-input {
+  min-width: 0;
 }
 </style>
