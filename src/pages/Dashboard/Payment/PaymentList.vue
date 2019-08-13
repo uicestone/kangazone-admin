@@ -95,8 +95,8 @@ export default {
   },
   data() {
     return {
-      currentSort: "name",
-      currentSortOrder: "asc",
+      currentSort: "updatedAt",
+      currentSortOrder: "desc",
       pagination: {
         perPage: 10,
         currentPage: 1,
