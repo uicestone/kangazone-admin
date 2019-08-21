@@ -39,10 +39,6 @@
           :link="{ name: '系统配置', icon: 'settings', path: '/config' }"
         >
         </sidebar-item>
-        <sidebar-item
-          :link="{ name: '数据统计', icon: 'dashboard', path: '/dashboard' }"
-        >
-        </sidebar-item>
       </template>
       <template slot="links" v-if="inDevelopment">
         <sidebar-item
@@ -270,14 +266,14 @@
     <div class="main-panel">
       <top-navbar></top-navbar>
 
-      <fixed-plugin
+      <!-- <fixed-plugin
         :color.sync="sidebarBackground"
         :colorBg.sync="sidebarBackgroundColor"
         :sidebarMini.sync="sidebarMini"
         :sidebarImg.sync="sidebarImg"
         :image.sync="sidebarBackgroundImage"
       >
-      </fixed-plugin>
+      </fixed-plugin> -->
 
       <div
         :class="{ content: !$route.meta.hideContent }"
