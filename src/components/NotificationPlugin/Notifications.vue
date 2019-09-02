@@ -8,6 +8,7 @@
         :icon="notification.icon"
         :type="notification.type"
         :timestamp="notification.timestamp"
+        :timeout="notification.timeout"
         :vertical-align="notification.verticalAlign"
         :horizontal-align="notification.horizontalAlign"
         @on-close="removeNotification"

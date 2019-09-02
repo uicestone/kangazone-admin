@@ -1,5 +1,6 @@
 <template>
   <div class="full-page" :class="{ 'nav-open': $sidebar.showSidebar }">
+    <notifications></notifications>
     <md-toolbar md-elevation="0" class="md-transparent md-toolbar-absolute">
       <div class="md-toolbar-row md-offset">
         <div class="md-toolbar-section-start">
