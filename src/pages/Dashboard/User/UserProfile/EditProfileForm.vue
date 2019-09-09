@@ -117,7 +117,7 @@
             <md-field>
               <label>用户名</label>
               <md-input
-                v-model="user.username"
+                v-model="user.login"
                 type="text"
                 autocomplete="new-password"
               ></md-input>
