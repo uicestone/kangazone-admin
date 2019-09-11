@@ -138,6 +138,42 @@
               </div>
             </md-card-content>
           </md-card>
+          <md-card class="payments-card">
+            <md-card-header class="md-card-header-icon md-card-header-primary">
+              <div class="card-icon">
+                <md-icon>payment</md-icon>
+              </div>
+              <h4 class="title">付款记录</h4>
+            </md-card-header>
+
+            <md-card-content class="md-layout">
+              <md-table>
+                <md-table-row
+                  v-for="payment in booking.payments"
+                  :key="payment.id"
+                >
+                  <md-table-cell md-label="金额" md-sort-by="amount"
+                    >¥{{ payment.amount }}</md-table-cell
+                  >
+                  <md-table-cell md-label="完成" md-sort-by="paid">{{
+                    payment.paid ? "是" : "否"
+                  }}</md-table-cell>
+                  <md-table-cell
+                    md-label="描述"
+                    md-sort-by="title"
+                    style="width:35%"
+                    >{{ payment.title }}</md-table-cell
+                  >
+                  <md-table-cell md-label="通道" md-sort-by="gateway">{{
+                    payment.gateway | paymentGatewayName
+                  }}</md-table-cell>
+                  <md-table-cell md-label="创建时间" md-sort-by="createdAt">{{
+                    payment.createdAt | date
+                  }}</md-table-cell>
+                </md-table-row>
+              </md-table>
+            </md-card-content>
+          </md-card>
         </form>
       </div>
     </div>
@@ -198,6 +234,20 @@ export default {
       this.storeSearchTerm = c.name;
     }
   },
+  filters: {
+    paymentGatewayName(gateway) {
+      const gatewayNames = {
+        credit: "余额支付",
+        scan: "扫码支付",
+        card: "刷卡支付",
+        cash: "现金支付",
+        wechatpay: "微信支付",
+        alipay: "支付宝",
+        unionpay: "银联支付"
+      };
+      return gatewayNames[gateway];
+    }
+  },
   async mounted() {
     if (this.$route.params.id !== "add") {
       this.booking = (await Booking.get({ id: this.$route.params.id })).body;
@@ -214,5 +264,8 @@ export default {
 }
 .md-input {
   min-width: 0;
+}
+.payments-card {
+  margin-top: 50px;
 }
 </style>
