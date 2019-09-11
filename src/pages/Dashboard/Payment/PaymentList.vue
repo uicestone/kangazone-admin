@@ -43,21 +43,29 @@
               <md-table-cell md-label="客人" md-sort-by="customer.name">{{
                 item.customer.name
               }}</md-table-cell>
-              <md-table-cell md-label="金额" md-sort-by="amount">{{
-                item.amount
-              }}</md-table-cell>
+              <md-table-cell md-label="金额" md-sort-by="amount"
+                >¥{{ item.amount }}</md-table-cell
+              >
               <md-table-cell md-label="完成" md-sort-by="paid">{{
-                item.paid
+                item.paid ? "是" : "否"
               }}</md-table-cell>
-              <md-table-cell md-label="描述" md-sort-by="title">{{
-                item.title
-              }}</md-table-cell>
+              <md-table-cell
+                md-label="描述"
+                md-sort-by="title"
+                style="width:35%"
+                >{{ item.title }}</md-table-cell
+              >
               <md-table-cell md-label="通道" md-sort-by="gateway">{{
-                item.gateway
+                item.gateway | paymentGatewayName
               }}</md-table-cell>
               <md-table-cell md-label="创建时间" md-sort-by="createdAt">{{
                 item.createdAt | date
               }}</md-table-cell>
+              <md-table-cell
+                md-label="相关链接"
+                @click.native.stop="goToRelatedItem(item)"
+                >{{ relatedItem(item) }}</md-table-cell
+              >
               <!-- <md-table-cell md-label="操作">
                 <md-button
                   class="md-just-icon md-danger md-simple"
@@ -133,6 +141,20 @@ export default {
       return this.pagination.total;
     }
   },
+  filters: {
+    paymentGatewayName(gateway) {
+      const gatewayNames = {
+        credit: "余额支付",
+        scan: "扫码支付",
+        card: "刷卡支付",
+        cash: "现金支付",
+        wechatpay: "微信支付",
+        alipay: "支付宝",
+        unionpay: "银联支付"
+      };
+      return gatewayNames[gateway];
+    }
+  },
   methods: {
     async queryData() {
       const response = await Payment.get(this.query);
@@ -144,6 +166,21 @@ export default {
     },
     showCreate() {
       this.$router.push("/payment/add");
+    },
+    goToRelatedItem(item) {
+      const attach = item.attach.split(" ");
+      switch (attach[0]) {
+        case "booking":
+          return this.$router.push(`/booking/${attach[1]}`);
+      }
+    },
+    relatedItem(item) {
+      const attach = item.attach.split(" ");
+      switch (attach[0]) {
+        case "booking":
+          console.log("预约");
+          return "预约";
+      }
     },
     noop() {}
   },
