@@ -279,10 +279,16 @@
         :class="{ content: !$route.meta.hideContent }"
         @click="toggleSidebar"
       >
-        <zoom-center-transition :duration="200" mode="out-in">
-          <!-- your content here -->
-          <router-view></router-view>
-        </zoom-center-transition>
+        <keep-alive>
+          <router-view
+            :key="$route.fullPath"
+            v-if="$route.meta.keepAlive"
+          ></router-view>
+        </keep-alive>
+        <router-view
+          :key="$route.fullPath"
+          v-if="!$route.meta.keepAlive"
+        ></router-view>
       </div>
       <content-footer v-if="!$route.meta.hideFooter"></content-footer>
     </div>
