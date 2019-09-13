@@ -18,15 +18,12 @@
           >
             <md-table-toolbar>
               <div class="md-layout-item md-layout md-alignment-left">
-                <md-field>
-                  <label>搜索客户</label>
-                  <md-input
-                    type="search"
-                    clearable
-                    v-model="searchQuery.customerKeyword"
-                  >
-                  </md-input>
-                </md-field>
+                <md-datepicker
+                  v-model="searchQuery.date"
+                  :md-model-type="String"
+                  md-immediately
+                  ><label>日期</label>
+                </md-datepicker>
 
                 <md-field>
                   <label>筛选状态</label>
@@ -57,12 +54,15 @@
                   </md-select>
                 </md-field>
 
-                <md-datepicker
-                  v-model="searchQuery.date"
-                  :md-model-type="String"
-                  md-immediately
-                  ><label>日期</label>
-                </md-datepicker>
+                <md-field>
+                  <label>搜索客户</label>
+                  <md-input
+                    type="search"
+                    clearable
+                    v-model="searchQuery.customerKeyword"
+                  >
+                  </md-input>
+                </md-field>
               </div>
               <div class="">
                 <md-button class="md-primary" @click="showCreate">
@@ -234,5 +234,9 @@ export default {
   border: 0;
   margin-left: 20px;
   margin-right: 20px;
+}
+>>> .md-datepicker .md-date-icon {
+  margin-top: 15px;
+  margin-bottom: 0;
 }
 </style>
