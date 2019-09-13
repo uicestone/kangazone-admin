@@ -71,7 +71,8 @@ Object.defineProperty(Vue.prototype, "$bookingStatusNames", {
     return {
       PENDING: "待付款",
       BOOKED: "已确认",
-      IN_SERVICE: "进行中",
+      IN_SERVICE: "已入场",
+      PENDING_REFUND: "待退款",
       FINISHED: "已完成",
       CANCELED: "已取消"
     };

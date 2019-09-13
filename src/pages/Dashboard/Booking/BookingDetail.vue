@@ -221,17 +221,17 @@ export default {
       this.customers = (await User.get({ keyword: q })).body;
       return this.customers;
     },
-    selectCustomer(c, b, a) {
-      this.booking.customer = c;
-      this.customerSearchTerm = c.name;
+    selectCustomer(item) {
+      this.booking.customer = item;
+      this.customerSearchTerm = item.name;
     },
     async getStores(q) {
       this.stores = (await Store.get({ keyword: q })).body;
       return this.stores;
     },
-    selectStore(c, b, a) {
-      this.booking.store = c;
-      this.storeSearchTerm = c.name;
+    selectStore(item) {
+      this.booking.store = item;
+      this.storeSearchTerm = item.name;
     }
   },
   filters: {

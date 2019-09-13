@@ -178,7 +178,6 @@ export default {
       const attach = item.attach.split(" ");
       switch (attach[0]) {
         case "booking":
-          console.log("预约");
           return "预约";
       }
     },

@@ -17,17 +17,53 @@
             class="paginated-table table-striped table-hover"
           >
             <md-table-toolbar>
-              <md-field>
-                <md-input
-                  type="search"
-                  clearable
-                  placeholder="搜索"
-                  style="width: 200px;"
-                  v-model="searchQuery.keyword"
-                >
-                </md-input>
-              </md-field>
+              <div class="md-layout-item md-layout md-alignment-left">
+                <md-field>
+                  <label>搜索客户</label>
+                  <md-input
+                    type="search"
+                    clearable
+                    v-model="searchQuery.customerKeyword"
+                  >
+                  </md-input>
+                </md-field>
 
+                <md-field>
+                  <label>筛选状态</label>
+                  <md-select v-model="searchQuery.status" multiple>
+                    <md-option value="">全部状态</md-option>
+                    <md-option
+                      v-for="(name, status) in bookingStatusNames"
+                      :key="status"
+                      :value="status"
+                      >{{ name }}</md-option
+                    >
+                  </md-select>
+                </md-field>
+
+                <md-field>
+                  <label>筛选类型</label>
+                  <md-select v-model="searchQuery.type">
+                    <md-option value="">全部类型</md-option>
+                    <md-option
+                      v-for="(name, type) in {
+                        play: '自由游玩',
+                        party: '派对'
+                      }"
+                      :key="type"
+                      :value="type"
+                      >{{ name }}</md-option
+                    >
+                  </md-select>
+                </md-field>
+
+                <md-datepicker
+                  v-model="searchQuery.date"
+                  :md-model-type="String"
+                  md-immediately
+                  ><label>日期</label>
+                </md-datepicker>
+              </div>
               <div class="">
                 <md-button class="md-primary" @click="showCreate">
                   添加预约
@@ -117,7 +153,8 @@ export default {
       },
       searchQuery: {},
       searchDelayTimeout: null,
-      queriedData: []
+      queriedData: [],
+      bookingStatusNames: this.$bookingStatusNames
     };
   },
   mounted() {
@@ -125,13 +162,22 @@ export default {
   },
   computed: {
     query() {
-      return Object.assign({}, this.searchQuery, {
+      const searchQuery = {
+        ...this.searchQuery,
         limit: this.pagination.perPage,
         skip: (this.pagination.currentPage - 1) * this.pagination.perPage,
         order: this.currentSort
           ? `${this.currentSortOrder === "desc" ? "-" : ""}${this.currentSort}`
           : undefined
-      });
+      };
+
+      for (let field in searchQuery) {
+        if (Array.isArray(searchQuery[field])) {
+          searchQuery[field] = searchQuery[field].join(",");
+        }
+      }
+
+      return searchQuery;
     },
     from() {
       return Math.min(
