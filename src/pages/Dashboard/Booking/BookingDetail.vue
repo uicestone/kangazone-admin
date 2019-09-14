@@ -135,6 +135,12 @@
                 <md-button type="submit" class="md-raised md-primary mt-4"
                   >保存</md-button
                 >
+                <md-button
+                  type="button"
+                  class="mt-4 ml-2 md-simple md-danger"
+                  @click="remove"
+                  >删除</md-button
+                >
               </div>
             </md-card-content>
           </md-card>
@@ -184,6 +190,7 @@
 // import { Datetime } from "vue-datetime";
 // import "vue-datetime/dist/vue-datetime.css";
 import { Booking, Store, User } from "@/resources";
+import Swal from "sweetalert2";
 
 export default {
   // components: { Datetime },
@@ -216,6 +223,24 @@ export default {
       if (this.$route.params.id === "add") {
         this.$router.replace(`/booking/${this.booking.id}`);
       }
+    },
+    async remove() {
+      if (
+        !(await Swal.fire({
+          title: "确定要删除这个预约？",
+          text: `这个操作不可撤销，并且将删除这个预约和他的所有支付记录`,
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonClass: "md-button md-danger",
+          cancelButtonClass: "md-button",
+          confirmButtonText: "确定删除",
+          cancelButtonText: "取消",
+          buttonsStyling: false
+        })).value
+      )
+        return;
+      await Booking.delete({ id: this.booking.id });
+      this.$router.go(-1);
     },
     async getCustomers(q) {
       this.customers = (await User.get({ keyword: q })).body;

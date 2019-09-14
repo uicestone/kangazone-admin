@@ -28,7 +28,6 @@
                 <md-field>
                   <label>筛选状态</label>
                   <md-select v-model="searchQuery.status" multiple>
-                    <md-option value="">全部状态</md-option>
                     <md-option
                       v-for="(name, status) in bookingStatusNames"
                       :key="status"
@@ -157,7 +156,7 @@ export default {
       bookingStatusNames: this.$bookingStatusNames
     };
   },
-  mounted() {
+  activated() {
     this.queryData();
   },
   computed: {
@@ -235,7 +234,7 @@ export default {
   margin-left: 20px;
   margin-right: 20px;
 }
->>> .md-datepicker .md-date-icon {
+* >>> .md-datepicker .md-date-icon {
   margin-top: 15px;
   margin-bottom: 0;
 }
