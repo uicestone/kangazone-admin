@@ -18,14 +18,19 @@
           >
             <md-table-toolbar>
               <md-field>
-                <md-input
-                  type="search"
-                  clearable
-                  placeholder="搜索"
-                  style="width: 200px;"
-                  v-model="searchQuery.keyword"
-                >
-                </md-input>
+                <label>付款状态</label>
+                <md-select v-model="searchQuery.paid">
+                  <md-option value="">全部</md-option>
+                  <md-option
+                    v-for="(name, paid) in {
+                      true: '是',
+                      false: '否'
+                    }"
+                    :key="paid"
+                    :value="paid"
+                    >{{ name }}</md-option
+                  >
+                </md-select>
               </md-field>
 
               <div class="">
@@ -58,7 +63,7 @@
               <md-table-cell md-label="通道" md-sort-by="gateway">{{
                 item.gateway | paymentGatewayName
               }}</md-table-cell>
-              <md-table-cell md-label="创建时间" md-sort-by="createdAt">{{
+              <md-table-cell md-label="更新时间" md-sort-by="updatedAt">{{
                 item.createdAt | date
               }}</md-table-cell>
               <md-table-cell
@@ -162,16 +167,18 @@ export default {
       this.pagination.total = Number(response.headers.map["items-total"][0]);
     },
     showDetail(item) {
-      this.$router.push(`/payment/${item.id}`);
+      // this.$router.push(`/payment/${item.id}`);
     },
     showCreate() {
-      this.$router.push("/payment/add");
+      // this.$router.push("/payment/add");
     },
     goToRelatedItem(item) {
       const attach = item.attach.split(" ");
       switch (attach[0]) {
         case "booking":
           return this.$router.push(`/booking/${attach[1]}`);
+        case "deposit":
+          return this.$router.push(`/user/${attach[1]}`);
       }
     },
     relatedItem(item) {
@@ -179,6 +186,8 @@ export default {
       switch (attach[0]) {
         case "booking":
           return "预约";
+        case "deposit":
+          return "充值";
       }
     },
     noop() {}
