@@ -132,8 +132,8 @@ Vue.filter("bookingStatusName", value => {
 });
 
 Vue.filter("currency", value => {
-  if (value === undefined) return "-";
-  return "¥ " + value.toFixed(2);
+  if (value === undefined || value === null) return "-";
+  return "¥ " + (+value).toFixed(2);
 });
 
 Vue.filter("paymentGatewayName", gateway => {

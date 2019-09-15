@@ -1,4 +1,8 @@
 .md-select-menu {
+  &.md-menu-content {
+    width: auto;
+  }
+  
   .md-list-item {
     margin: 0 .3125rem;
     border-radius: $border-radius-small;

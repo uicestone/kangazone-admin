@@ -259,20 +259,6 @@ export default {
       this.storeSearchTerm = item.name;
     }
   },
-  filters: {
-    paymentGatewayName(gateway) {
-      const gatewayNames = {
-        credit: "余额支付",
-        scan: "扫码支付",
-        card: "刷卡支付",
-        cash: "现金支付",
-        wechatpay: "微信支付",
-        alipay: "支付宝",
-        unionpay: "银联支付"
-      };
-      return gatewayNames[gateway];
-    }
-  },
   async mounted() {
     if (this.$route.params.id !== "add") {
       this.booking = (await Booking.get({ id: this.$route.params.id })).body;

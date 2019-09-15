@@ -8,17 +8,25 @@
           </div>
           <h4 class="title">流水明细</h4>
         </md-card-header>
-        <md-card-content>
-          <md-table
-            :value="queriedData"
-            :md-sort.sync="currentSort"
-            :md-sort-order.sync="currentSortOrder"
-            :md-sort-fn="noop"
-            class="paginated-table table-striped table-hover"
+        <md-card-content class="paginated-table">
+          <div
+            class="md-toolbar md-table-toolbar md-transparent md-theme-default md-elevation-0"
           >
-            <md-table-toolbar>
-              <md-field>
-                <label>付款状态</label>
+            <div class="md-layout-item" style="flex:0;flex-basis:160px">
+              总金额：{{ totalAmount | currency }}
+            </div>
+            <div
+              class="md-layout md-layout-item md-alignment-center-right search-query"
+            >
+              <md-datepicker
+                v-model="searchQuery.date"
+                :md-model-type="String"
+                md-immediately
+                ><label>日期</label>
+              </md-datepicker>
+
+              <md-field class="simple">
+                <label>完成</label>
                 <md-select v-model="searchQuery.paid">
                   <md-option value="">全部</md-option>
                   <md-option
@@ -33,12 +41,59 @@
                 </md-select>
               </md-field>
 
-              <div class="">
-                <!-- <md-button class="md-primary" @click="showCreate">
-                  支付流水               </md-button> -->
-              </div>
-            </md-table-toolbar>
+              <md-field class="simple">
+                <label>类型</label>
+                <md-select v-model="searchQuery.attach">
+                  <md-option value="">全部</md-option>
+                  <md-option
+                    v-for="(name, attach) in {
+                      booking: '预定',
+                      deposit: '充值'
+                    }"
+                    :key="attach"
+                    :value="attach"
+                    >{{ name }}</md-option
+                  >
+                </md-select>
+              </md-field>
 
+              <md-field class="simple">
+                <label>方向</label>
+                <md-select v-model="searchQuery.direction">
+                  <md-option value="">全部</md-option>
+                  <md-option
+                    v-for="(name, direction) in {
+                      payment: '收款',
+                      refund: '退款'
+                    }"
+                    :key="direction"
+                    :value="direction"
+                    >{{ name }}</md-option
+                  >
+                </md-select>
+              </md-field>
+
+              <md-field class="simple">
+                <label>通道</label>
+                <md-select v-model="searchQuery.gateway" multiple>
+                  <md-option
+                    v-for="(name, gateway) in $gatewayNames"
+                    :key="gateway"
+                    :value="gateway"
+                    >{{ name }}</md-option
+                  >
+                </md-select>
+              </md-field>
+            </div>
+          </div>
+
+          <md-table
+            :value="queriedData"
+            :md-sort.sync="currentSort"
+            :md-sort-order.sync="currentSortOrder"
+            :md-sort-fn="noop"
+            class="table-striped table-hover"
+          >
             <md-table-row
               slot="md-table-row"
               md-selectable="single"
@@ -48,9 +103,9 @@
               <md-table-cell md-label="客人" md-sort-by="customer.name">{{
                 item.customer.name
               }}</md-table-cell>
-              <md-table-cell md-label="金额" md-sort-by="amount"
-                >¥{{ item.amount }}</md-table-cell
-              >
+              <md-table-cell md-label="金额" md-sort-by="amount">{{
+                item.amount | currency
+              }}</md-table-cell>
               <md-table-cell md-label="完成" md-sort-by="paid">{{
                 item.paid ? "是" : "否"
               }}</md-table-cell>
@@ -99,6 +154,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import { Pagination } from "@/components";
 import { Payment } from "@/resources";
 
@@ -115,12 +171,17 @@ export default {
         currentPage: 1,
         total: 0
       },
-      searchQuery: {},
+      searchQuery: {
+        date: moment().format("YYYY-MM-DD"),
+        paid: true,
+        attach: ["booking"]
+      },
       searchDelayTimeout: null,
-      queriedData: []
+      queriedData: [],
+      totalAmount: null
     };
   },
-  mounted() {
+  activated() {
     this.queryData();
   },
   computed: {
@@ -146,25 +207,12 @@ export default {
       return this.pagination.total;
     }
   },
-  filters: {
-    paymentGatewayName(gateway) {
-      const gatewayNames = {
-        credit: "余额支付",
-        scan: "扫码支付",
-        card: "刷卡支付",
-        cash: "现金支付",
-        wechatpay: "微信支付",
-        alipay: "支付宝",
-        unionpay: "银联支付"
-      };
-      return gatewayNames[gateway];
-    }
-  },
   methods: {
     async queryData() {
       const response = await Payment.get(this.query);
       this.queriedData = response.body;
       this.pagination.total = Number(response.headers.map["items-total"][0]);
+      this.totalAmount = Number(response.headers.map["total-amount"][0]);
     },
     showDetail(item) {
       // this.$router.push(`/payment/${item.id}`);
@@ -220,5 +268,12 @@ export default {
   border: 0;
   margin-left: 20px;
   margin-right: 20px;
+}
+* >>> .md-datepicker .md-date-icon {
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+.search-query >>> .simple input {
+  width: 70px;
 }
 </style>

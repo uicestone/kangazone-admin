@@ -235,7 +235,7 @@ export default {
   margin-right: 20px;
 }
 * >>> .md-datepicker .md-date-icon {
-  margin-top: 15px;
+  margin-top: 12px;
   margin-bottom: 0;
 }
 </style>
