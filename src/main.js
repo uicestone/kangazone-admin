@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import VueResource from "vue-resource";
+import moment from "moment";
 import DashboardPlugin from "./material-dashboard";
 
 // Plugins
@@ -14,6 +15,8 @@ import routes from "./routes/routes";
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(DashboardPlugin);
+
+moment.locale("zh-cn");
 
 // configure router
 const router = new VueRouter({
@@ -32,6 +35,15 @@ const router = new VueRouter({
 Object.defineProperty(Vue.prototype, "$Chartist", {
   get() {
     return this.$root.Chartist;
+  }
+});
+
+Object.defineProperty(Vue.prototype, "$isLoading", {
+  get() {
+    return this.$root.isLoading;
+  },
+  set(val) {
+    this.$root.isLoading = val;
   }
 });
 
@@ -79,6 +91,55 @@ Object.defineProperty(Vue.prototype, "$bookingStatusNames", {
   }
 });
 
+Object.defineProperty(Vue.prototype, "$gatewayNames", {
+  get() {
+    return {
+      credit: "余额支付",
+      scan: "扫码支付",
+      card: "刷卡支付",
+      cash: "现金支付",
+      wechatpay: "微信支付",
+      alipay: "支付宝",
+      unionpay: "银联支付"
+    };
+  }
+});
+
+Vue.filter("date", (value, format) => {
+  if (!value) {
+    return null;
+  }
+  return moment(value).format(format || "YYYY-MM-DD HH:mm");
+});
+
+Vue.filter("duration", value => {
+  return moment.duration(value).humanize();
+});
+
+Vue.filter("round", (value, digits) => {
+  if (!value) {
+    return (0).toFixed(digits);
+  }
+  return value.toFixed(digits || 0);
+});
+
+Vue.filter("bookingTypeName", value => {
+  return Vue.prototype.$bookingTypeNames[value];
+});
+
+Vue.filter("bookingStatusName", value => {
+  return Vue.prototype.$bookingStatusNames[value];
+});
+
+Vue.filter("currency", value => {
+  if (value === undefined) return "-";
+  return "¥ " + value.toFixed(2);
+});
+
+Vue.filter("paymentGatewayName", gateway => {
+  return Vue.prototype.$gatewayNames[gateway];
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
@@ -86,6 +147,7 @@ new Vue({
   router,
   data: {
     Chartist: Chartist,
-    user: {}
+    user: {},
+    isLoading: false
   }
 });
