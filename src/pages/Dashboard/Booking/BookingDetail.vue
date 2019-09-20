@@ -278,5 +278,8 @@ export default {
 }
 .payments-card {
   margin-top: 50px;
+  .md-table {
+    width: 100%;
+  }
 }
 </style>

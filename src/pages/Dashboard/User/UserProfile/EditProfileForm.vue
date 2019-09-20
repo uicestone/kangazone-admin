@@ -13,11 +13,11 @@
 
       <md-card-content class="md-layout">
         <div class="file-input img-circle md-layout-item md-size-25">
-          <template v-if="!user.avatarUrl">
+          <div v-if="!user.avatarUrl">
             <div class="image-container">
               <img src="/img/placeholder.jpg" title="" />
             </div>
-          </template>
+          </div>
           <div class="image-container" v-else>
             <img :src="user.avatarUrl" />
           </div>
@@ -33,12 +33,8 @@
               class="md-success md-round md-fileinput"
               :class="{ 'md-just-icon': user.avatarUrl }"
             >
-              <template v-if="!user.avatarUrl"
-                >选择头像</template
-              >
-              <template v-else
-                ><md-icon>refresh</md-icon></template
-              >
+              <div v-if="!user.avatarUrl">选择头像</div>
+              <div v-else><md-icon>refresh</md-icon></div>
               <input
                 type="file"
                 ref="avatarFileInput"
@@ -73,13 +69,22 @@
               <md-input v-model="user.region" type="text"></md-input>
             </md-field>
           </div>
-          <div
+          <!-- <div
             v-if="user.role === 'customer'"
             class="md-layout-item md-small-size-100 md-size-50"
           >
             <md-field>
               <label>等级</label>
               <md-input v-model="user.cardType" type="text" disabled></md-input>
+            </md-field>
+          </div> -->
+          <div
+            v-if="user.role === 'customer'"
+            class="md-layout-item md-small-size-100 md-size-50"
+          >
+            <md-field>
+              <label>卡号</label>
+              <md-input v-model="user.cardNo" type="text" disabled></md-input>
             </md-field>
           </div>
           <div
