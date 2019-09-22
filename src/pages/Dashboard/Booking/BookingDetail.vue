@@ -141,6 +141,12 @@
                   @click="remove"
                   >删除</md-button
                 >
+                <md-button
+                  type="button"
+                  class="mt-4 ml-2 md-simple md-info"
+                  @click="goCustomerDetail"
+                  >客户：{{ booking.customer.name }}</md-button
+                >
               </div>
             </md-card-content>
           </md-card>
@@ -257,6 +263,9 @@ export default {
     selectStore(item) {
       this.booking.store = item;
       this.storeSearchTerm = item.name;
+    },
+    goCustomerDetail() {
+      this.$router.push(`/user/${this.booking.customer.id}`);
     }
   },
   async mounted() {
