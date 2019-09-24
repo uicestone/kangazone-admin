@@ -17,17 +17,33 @@
             class="paginated-table table-striped table-hover"
           >
             <md-table-toolbar>
-              <md-field>
-                <md-input
-                  type="search"
-                  clearable
-                  placeholder="搜索"
-                  style="width: 200px;"
-                  v-model="searchQuery.keyword"
-                >
-                </md-input>
-              </md-field>
-
+              <div class="md-layout-item md-layout md-alignment-left">
+                <md-field>
+                  <md-input
+                    type="search"
+                    clearable
+                    placeholder="搜索"
+                    style="width: 200px;"
+                    v-model="searchQuery.keyword"
+                  >
+                  </md-input>
+                </md-field>
+                <md-field>
+                  <label>筛选角色</label>
+                  <md-select v-model="searchQuery.role">
+                    <md-option
+                      v-for="(name, type) in {
+                        admin: '管理员',
+                        manager: '店员',
+                        customer: '客户'
+                      }"
+                      :key="type"
+                      :value="type"
+                      >{{ name }}</md-option
+                    >
+                  </md-select>
+                </md-field>
+              </div>
               <div class="">
                 <md-button class="md-primary" @click="showCreate">
                   添加用户
@@ -53,15 +69,18 @@
               <md-table-cell md-label="地区" md-sort-by="region">{{
                 item.region
               }}</md-table-cell>
-              <md-table-cell md-label="等级" md-sort-by="cardType">{{
-                item.cardType
-              }}</md-table-cell>
-              <md-table-cell md-label="余额" md-sort-by="credit">{{
-                item.credit | currency
-              }}</md-table-cell>
-              <md-table-cell md-label="权限" md-sort-by="role">{{
-                item.role | roleName
-              }}</md-table-cell>
+              <md-table-cell
+                md-label="等级"
+                md-sort-by="cardType"
+                v-if="searchQuery.role === 'customer'"
+                >{{ item.cardType }}</md-table-cell
+              >
+              <md-table-cell
+                md-label="余额"
+                md-sort-by="credit"
+                v-if="searchQuery.role === 'customer'"
+                >{{ item.credit | currency }}</md-table-cell
+              >
               <md-table-cell md-label="注册时间" md-sort-by="createdAt">{{
                 item.createdAt | date
               }}</md-table-cell>
@@ -109,7 +128,7 @@ export default {
         currentPage: 1,
         total: 0
       },
-      searchQuery: {},
+      searchQuery: { role: "customer" },
       searchDelayTimeout: null,
       queriedData: []
     };

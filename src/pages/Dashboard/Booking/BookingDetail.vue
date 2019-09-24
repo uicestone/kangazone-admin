@@ -145,7 +145,9 @@
                   type="button"
                   class="mt-4 ml-2 md-simple md-info"
                   @click="goCustomerDetail"
-                  >客户：{{ booking.customer.name }}</md-button
+                  >客户：{{ booking.customer.name }} ({{
+                    booking.customer.mobile.substr(-4)
+                  }})</md-button
                 >
               </div>
             </md-card-content>

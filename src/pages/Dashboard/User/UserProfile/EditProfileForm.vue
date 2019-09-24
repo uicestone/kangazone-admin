@@ -101,16 +101,24 @@
             class="md-layout-item md-small-size-100 md-size-50"
           >
             <md-field>
-              <label>权限</label>
+              <label>角色</label>
               <md-select
-                v-model="user.roles"
-                multiple
+                v-model="user.role"
                 @keydown.enter.prevent=""
                 :disabled="!$user.can('manage-user')"
               >
                 <md-option value="admin">管理员</md-option>
                 <md-option value="manager">店长</md-option>
               </md-select>
+            </md-field>
+          </div>
+          <div
+            v-if="user.role !== 'customer'"
+            class="md-layout-item md-small-size-100 md-size-50"
+          >
+            <md-field>
+              <label>通行证</label>
+              <md-input v-model="user.passNo" />
             </md-field>
           </div>
         </div>

@@ -54,12 +54,7 @@ Object.defineProperty(Vue.prototype, "$user", {
         admin: ".*",
         manager: "view-(booking|user|code)"
       };
-      return (
-        this.roles &&
-        this.roles.some(r => {
-          return cap.match(`^${roleCaps[r]}$`);
-        })
-      );
+      return this.role && cap.match(`^${roleCaps[this.role]}$`);
     };
 
     return this.$root.user;
