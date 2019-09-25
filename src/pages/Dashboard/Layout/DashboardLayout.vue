@@ -13,7 +13,7 @@
       :data-background-color="sidebarBackgroundColor"
     >
       <user-menu></user-menu>
-      <mobile-menu></mobile-menu>
+      <!-- <mobile-menu></mobile-menu> -->
       <template slot="links">
         <sidebar-item
           :link="{ name: '预约管理', icon: 'access_time', path: '/booking' }"
