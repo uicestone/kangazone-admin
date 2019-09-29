@@ -104,7 +104,7 @@
                 item.customer.name
               }}</md-table-cell>
               <md-table-cell md-label="金额" md-sort-by="amount">{{
-                item.amount | currency
+                item.amountDeposit || item.amount | currency
               }}</md-table-cell>
               <md-table-cell md-label="完成" md-sort-by="paid">{{
                 item.paid ? "是" : "否"
