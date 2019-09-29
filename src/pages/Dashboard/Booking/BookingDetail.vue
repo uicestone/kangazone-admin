@@ -145,9 +145,10 @@
                   type="button"
                   class="mt-4 ml-2 md-simple md-info"
                   @click="goCustomerDetail"
-                  >客户：{{ booking.customer.name }} ({{
-                    booking.customer.mobile.substr(-4)
-                  }})</md-button
+                  >客户：{{ booking.customer.name }}
+                  <span v-if="booking.customer.mobile"
+                    >({{ booking.customer.mobile.substr(-4) }})</span
+                  ></md-button
                 >
               </div>
             </md-card-content>
