@@ -55,12 +55,7 @@
         :style="setBgImage"
       >
         <div class="container md-offset">
-          <zoom-center-transition
-            :duration="pageTransitionDuration"
-            mode="out-in"
-          >
-            <router-view></router-view>
-          </zoom-center-transition>
+          <router-view></router-view>
         </div>
         <footer class="footer">
           <div class="container md-offset">
@@ -98,12 +93,7 @@
   </div>
 </template>
 <script>
-import { ZoomCenterTransition } from "vue2-transitions";
-
 export default {
-  components: {
-    ZoomCenterTransition
-  },
   props: {
     backgroundColor: {
       type: String,
