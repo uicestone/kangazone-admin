@@ -10,7 +10,7 @@
         </md-card-header>
         <md-card-content class="paginated-table">
           <div
-            class="md-toolbar md-table-toolbar md-transparent md-theme-default md-elevation-0"
+            class="md-toolbar md-table-toolbar md-transparent md-theme-default md-elevation-0 md-layout mb-2"
           >
             <div class="md-layout-item" style="flex:0;flex-basis:160px">
               总金额：{{ totalAmount | currency }}
@@ -22,10 +22,11 @@
                 v-model="searchQuery.date"
                 :md-model-type="String"
                 md-immediately
+                class="md-layout-item md-size-20 md-xsmall-size-100"
                 ><label>日期</label>
               </md-datepicker>
 
-              <md-field class="simple">
+              <md-field class="md-layout-item md-size-15 md-xsmall-size-25">
                 <label>完成</label>
                 <md-select v-model="searchQuery.paid">
                   <md-option value="">全部</md-option>
@@ -41,7 +42,7 @@
                 </md-select>
               </md-field>
 
-              <md-field class="simple">
+              <md-field class="md-layout-item md-size-15 md-xsmall-size-25">
                 <label>类型</label>
                 <md-select v-model="searchQuery.attach">
                   <md-option value="">全部</md-option>
@@ -57,7 +58,7 @@
                 </md-select>
               </md-field>
 
-              <md-field class="simple">
+              <md-field class="md-layout-item md-size-15 md-xsmall-size-25">
                 <label>方向</label>
                 <md-select v-model="searchQuery.direction">
                   <md-option value="">全部</md-option>
@@ -73,7 +74,7 @@
                 </md-select>
               </md-field>
 
-              <md-field class="simple">
+              <md-field class="md-layout-item md-size-15 md-xsmall-size-25">
                 <label>通道</label>
                 <md-select v-model="searchQuery.gateway" multiple>
                   <md-option
@@ -272,8 +273,5 @@ export default {
 * >>> .md-datepicker .md-date-icon {
   margin-top: 12px;
   margin-bottom: 0;
-}
-.search-query >>> .simple input {
-  width: 70px;
 }
 </style>

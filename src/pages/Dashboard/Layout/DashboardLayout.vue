@@ -13,7 +13,7 @@
       :data-background-color="sidebarBackgroundColor"
     >
       <user-menu></user-menu>
-      <mobile-menu></mobile-menu>
+      <!-- <mobile-menu></mobile-menu> -->
       <template slot="links">
         <sidebar-item
           :link="{ name: '预约管理', icon: 'access_time', path: '/booking' }"
@@ -264,7 +264,7 @@
       </template>
     </side-bar>
     <div class="main-panel">
-      <!-- <top-navbar></top-navbar> -->
+      <top-navbar></top-navbar>
 
       <!-- <fixed-plugin
         :color.sync="sidebarBackground"
@@ -398,5 +398,10 @@ $scaleSize: 0.95;
 }
 .main-panel .zoomOut {
   animation-name: zoomOut95;
+}
+@media (min-width: 1024px) {
+  .main-panel > .md-toolbar {
+    display: none !important;
+  }
 }
 </style>

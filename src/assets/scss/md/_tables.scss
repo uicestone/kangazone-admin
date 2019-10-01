@@ -293,3 +293,15 @@
     padding-left: 28px;
   }
 }
+
+@media (max-width: 480px) {
+  .paginated-table{
+    .md-table-toolbar{
+      .toolbar-actions {
+        width: 100%;
+        order: -1;
+        text-align: right;
+      }
+    }
+  }
+}

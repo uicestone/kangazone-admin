@@ -16,9 +16,9 @@
             :md-sort-fn="noop"
             class="paginated-table table-striped table-hover"
           >
-            <md-table-toolbar>
-              <div class="md-layout-item md-layout md-alignment-left">
-                <md-field>
+            <md-table-toolbar class="md-layout mb-2">
+              <div class="md-layout">
+                <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
                   <md-input
                     type="search"
                     clearable
@@ -28,7 +28,7 @@
                   >
                   </md-input>
                 </md-field>
-                <md-field>
+                <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
                   <label>筛选角色</label>
                   <md-select v-model="searchQuery.role">
                     <md-option
@@ -44,7 +44,7 @@
                   </md-select>
                 </md-field>
               </div>
-              <div class="">
+              <div class="toolbar-actions">
                 <md-button class="md-primary" @click="showCreate">
                   添加用户
                 </md-button>

@@ -16,16 +16,17 @@
             :md-sort-fn="noop"
             class="paginated-table table-striped table-hover"
           >
-            <md-table-toolbar>
-              <div class="md-layout-item md-layout md-alignment-left">
+            <md-table-toolbar class="md-layout mb-2">
+              <div class="md-layout">
                 <md-datepicker
                   v-model="searchQuery.date"
                   :md-model-type="String"
                   md-immediately
+                  class="md-layout-item md-size-20 md-xsmall-size-100"
                   ><label>日期</label>
                 </md-datepicker>
 
-                <md-field>
+                <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
                   <label>筛选状态</label>
                   <md-select v-model="searchQuery.status" multiple>
                     <md-option
@@ -37,7 +38,7 @@
                   </md-select>
                 </md-field>
 
-                <md-field>
+                <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
                   <label>筛选类型</label>
                   <md-select v-model="searchQuery.type">
                     <md-option value="">全部类型</md-option>
@@ -53,7 +54,7 @@
                   </md-select>
                 </md-field>
 
-                <md-field>
+                <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
                   <label>搜索客户</label>
                   <md-input
                     type="search"
@@ -63,7 +64,7 @@
                   </md-input>
                 </md-field>
               </div>
-              <div class="">
+              <div class="toolbar-actions">
                 <md-button class="md-primary" @click="showCreate">
                   添加预约
                 </md-button>
@@ -228,7 +229,7 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .md-card .md-card-actions {
   border: 0;
   margin-left: 20px;
