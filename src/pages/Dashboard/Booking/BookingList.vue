@@ -65,8 +65,11 @@
                 </md-field>
               </div>
               <div class="toolbar-actions">
-                <md-button class="md-primary" @click="showCreate">
-                  添加预约
+                <md-button class="md-simple" @click="showCreate">
+                  手动添加预约
+                </md-button>
+                <md-button class="md-just-icon md-simple" @click="queryData">
+                  <md-icon>refresh</md-icon>
                 </md-button>
               </div>
             </md-table-toolbar>
@@ -80,27 +83,34 @@
               <md-table-cell md-label="门店" md-sort-by="store.name">{{
                 item.store.name
               }}</md-table-cell>
-              <md-table-cell md-label="客户" md-sort-by="customer.name">{{
-                item.customer.name
-              }}</md-table-cell>
+              <md-table-cell
+                md-label="客户"
+                md-sort-by="customer.name"
+                @click.native.stop="goToCustomer(item.customer)"
+                >{{ item.customer.name }}
+                <span v-if="item.customer.mobile">{{
+                  item.customer.mobile.substr(-4)
+                }}</span>
+              </md-table-cell>
               <md-table-cell md-label="日期" md-sort-by="date">{{
                 item.date
               }}</md-table-cell>
               <md-table-cell md-label="时间" md-sort-by="checkInAt">{{
                 item.checkInAt
               }}</md-table-cell>
-              <md-table-cell md-label="类型" md-sort-by="type">{{
+              <!-- <md-table-cell md-label="类型" md-sort-by="type">{{
                 item.type | bookingTypeName
-              }}</md-table-cell>
+              }}</md-table-cell> -->
               <md-table-cell md-label="时长" md-sort-by="hours"
                 >{{ item.hours }}小时</md-table-cell
               >
-              <md-table-cell md-label="人数" md-sort-by="membersCount">{{
-                item.membersCount
-              }}</md-table-cell>
-              <md-table-cell md-label="袜子" md-sort-by="socksCount">{{
-                item.socksCount
-              }}</md-table-cell>
+              <md-table-cell md-label="人数/袜子" md-sort-by="membersCount"
+                >{{ item.membersCount }} / {{ item.socksCount }}</md-table-cell
+              >
+              <md-table-cell md-label="价格/已付" md-sort-by="socksCount"
+                >{{ item.price }} /
+                {{ item.payments | paidAmount }}</md-table-cell
+              >
               <md-table-cell md-label="状态" md-sort-by="status">{{
                 item.status | bookingStatusName
               }}</md-table-cell>
@@ -204,6 +214,9 @@ export default {
     showCreate() {
       this.$router.push("/booking/add");
     },
+    goToCustomer(customer) {
+      this.$router.push(`/user/${customer.id}`);
+    },
     noop() {}
   },
   watch: {
@@ -224,6 +237,14 @@ export default {
     },
     currentSortOrder() {
       this.queryData();
+    }
+  },
+  filters: {
+    paidAmount(payments) {
+      return payments
+        .filter(p => p.paid)
+        .map(p => p.amount)
+        .reduce((sum, amount) => sum + amount, 0);
     }
   }
 };
