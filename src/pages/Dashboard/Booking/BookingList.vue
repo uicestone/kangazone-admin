@@ -147,6 +147,7 @@
 <script>
 import { Pagination } from "@/components";
 import { Booking } from "@/resources";
+import moment from "moment";
 
 export default {
   components: {
@@ -161,7 +162,9 @@ export default {
         currentPage: 1,
         total: 0
       },
-      searchQuery: {},
+      searchQuery: {
+        date: moment().format("YYYY-MM-DD")
+      },
       searchDelayTimeout: null,
       queriedData: [],
       bookingStatusNames: this.$bookingStatusNames

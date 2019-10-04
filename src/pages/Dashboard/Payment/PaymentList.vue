@@ -113,7 +113,7 @@
               <md-table-cell
                 md-label="描述"
                 md-sort-by="title"
-                style="width:35%"
+                style="min-width:25em"
                 >{{ item.title }}</md-table-cell
               >
               <md-table-cell md-label="通道" md-sort-by="gateway">{{
