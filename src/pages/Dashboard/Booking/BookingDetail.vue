@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="md-layout">
-      <div class="md-layout-item md-medium-size-100 md-size-66 mx-auto">
+      <div class="md-layout-item md-size-66 mx-auto">
         <form @submit.prevent="save">
           <md-card>
             <md-card-header class="md-card-header-icon md-card-header-primary">
@@ -154,7 +154,7 @@
             </md-card-content>
           </md-card>
           <md-card class="payments-card">
-            <md-card-header class="md-card-header-icon md-card-header-primary">
+            <md-card-header class="md-card-header-icon md-card-header-danger">
               <div class="card-icon">
                 <md-icon>payment</md-icon>
               </div>
@@ -190,6 +190,57 @@
             </md-card-content>
           </md-card>
         </form>
+      </div>
+      <div class="md-layout-item md-size-33 mx-auto">
+        <md-card class="band-card">
+          <md-card-header class="md-card-header-icon md-card-header-green">
+            <div class="card-icon">
+              <md-icon>toll</md-icon>
+            </div>
+            <h4 class="title">绑定手环</h4>
+          </md-card-header>
+
+          <md-card-content class="md-layout">
+            <md-table>
+              <md-table-row
+                v-for="(bandId, index) in booking.bandIds"
+                :key="bandId"
+              >
+                <md-table-cell md-label="手环编号">{{ bandId }}</md-table-cell>
+                <md-table-cell md-label="手环编号8位">
+                  {{ booking.bandIds8[index] }}
+                </md-table-cell>
+              </md-table-row>
+            </md-table>
+          </md-card-content>
+        </md-card>
+        <md-card class="passlog-card">
+          <md-card-header class="md-card-header-icon md-card-header-green">
+            <div class="card-icon">
+              <md-icon>beenhere</md-icon>
+            </div>
+            <h4 class="title">通行记录</h4>
+          </md-card-header>
+
+          <md-card-content class="md-layout">
+            <md-table>
+              <md-table-row
+                v-for="passLog in booking.passLogs"
+                :key="passLog.id"
+              >
+                <md-table-cell md-label="时间">{{
+                  passLog.time | date
+                }}</md-table-cell>
+                <md-table-cell md-label="通道">{{
+                  passLog.gate
+                }}</md-table-cell>
+                <md-table-cell md-label="允许">{{
+                  passLog.allow ? "是" : "否"
+                }}</md-table-cell>
+              </md-table-row>
+            </md-table>
+          </md-card-content>
+        </md-card>
       </div>
     </div>
   </div>
@@ -290,8 +341,8 @@ export default {
 }
 .payments-card {
   margin-top: 50px;
-  .md-table {
-    width: 100%;
-  }
+}
+.md-card .md-table {
+  width: 100%;
 }
 </style>
