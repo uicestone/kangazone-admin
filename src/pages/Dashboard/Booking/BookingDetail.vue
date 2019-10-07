@@ -193,7 +193,7 @@
       </div>
       <div class="md-layout-item md-size-33 mx-auto">
         <md-card class="band-card">
-          <md-card-header class="md-card-header-icon md-card-header-green">
+          <md-card-header class="md-card-header-icon md-card-header-warning">
             <div class="card-icon">
               <md-icon>toll</md-icon>
             </div>
@@ -235,7 +235,7 @@
                   passLog.gate
                 }}</md-table-cell>
                 <md-table-cell md-label="允许">{{
-                  passLog.allow ? "是" : "否"
+                  passLog.allow ? "允许" : "拦截"
                 }}</md-table-cell>
               </md-table-row>
             </md-table>
