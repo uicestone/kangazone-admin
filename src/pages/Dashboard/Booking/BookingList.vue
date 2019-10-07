@@ -63,6 +63,16 @@
                   >
                   </md-input>
                 </md-field>
+
+                <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
+                  <label>手环编号</label>
+                  <md-input
+                    type="search"
+                    clearable
+                    v-model="searchQuery.bandId"
+                  >
+                  </md-input>
+                </md-field>
               </div>
               <div class="toolbar-actions">
                 <md-button class="md-simple" @click="showCreate">
@@ -231,7 +241,7 @@ export default {
         clearTimeout(this.searchDelayTimeout);
         this.searchDelayTimeout = setTimeout(() => {
           this.queryData();
-        }, 1000);
+        }, 200);
       },
       deep: true
     },

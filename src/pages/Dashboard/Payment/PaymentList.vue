@@ -250,7 +250,7 @@ export default {
         clearTimeout(this.searchDelayTimeout);
         this.searchDelayTimeout = setTimeout(() => {
           this.queryData();
-        }, 1000);
+        }, 200);
       },
       deep: true
     },
