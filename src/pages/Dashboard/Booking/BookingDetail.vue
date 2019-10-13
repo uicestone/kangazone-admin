@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="md-layout">
-      <div class="md-layout-item md-size-66 mx-auto">
+      <div class="md-layout-item md-size-66 md-small-size-100 mx-auto">
         <form @submit.prevent="save">
           <md-card>
             <md-card-header class="md-card-header-icon md-card-header-primary">
@@ -191,7 +191,7 @@
           </md-card>
         </form>
       </div>
-      <div class="md-layout-item md-size-33 mx-auto">
+      <div class="md-layout-item md-size-33 md-small-size-100 mx-auto">
         <md-card class="band-card">
           <md-card-header class="md-card-header-icon md-card-header-warning">
             <div class="card-icon">
@@ -229,7 +229,7 @@
                 :key="passLog.id"
               >
                 <md-table-cell md-label="时间">{{
-                  passLog.time | date
+                  passLog.time | date("HH:mm:ss")
                 }}</md-table-cell>
                 <md-table-cell md-label="通道">{{
                   passLog.gate
@@ -341,6 +341,9 @@ export default {
 }
 .payments-card {
   margin-top: 50px;
+}
+.md-card.md-theme-default {
+  position: static;
 }
 .md-card .md-table {
   width: 100%;

@@ -80,5 +80,9 @@
 }
 
 .md-datepicker-dialog .md-datepicker-body-content {
-  height: 236px !important;
+  // height: 236px !important;
+}
+
+.md-datepicker-body-footer {
+  display: none;
 }
