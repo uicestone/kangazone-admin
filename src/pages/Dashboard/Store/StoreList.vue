@@ -31,9 +31,9 @@
               </md-field>
 
               <div class="toolbar-actions">
-                <md-button class="md-primary" @click="showCreate">
+                <!-- <md-button class="md-primary" @click="showCreate">
                   添加场馆
-                </md-button>
+                </md-button> -->
               </div>
             </md-table-toolbar>
 
@@ -51,6 +51,9 @@
               }}</md-table-cell>
               <md-table-cell md-label="地址" md-sort-by="address">{{
                 item.address
+              }}</md-table-cell>
+              <md-table-cell md-label="服务器状态" md-sort-by="address">{{
+                item.localServer | localServer
               }}</md-table-cell>
               <!-- <md-table-cell md-label="操作">
                 <md-button
@@ -134,12 +137,30 @@ export default {
       this.pagination.total = Number(response.headers.map["items-total"][0]);
     },
     showDetail(item) {
-      this.$router.push(`/store/${item.id}`);
+      // this.$router.push(`/store/${item.id}`);
     },
     showCreate() {
       this.$router.push("/store/add");
     },
     noop() {}
+  },
+  filters: {
+    localServer(input) {
+      if (!input) return;
+      const statusLabel = {
+        disconnected: "已断开",
+        connected: "已连接",
+        died: "连接异常"
+      };
+      let text = "";
+      if (input.status && statusLabel[input.status]) {
+        text = statusLabel[input.status];
+      }
+      if (input.ip) {
+        text += ` ${input.ip.replace("::ffff:", "")}`;
+      }
+      return text;
+    }
   },
   watch: {
     "pagination.currentPage"() {
