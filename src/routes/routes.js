@@ -15,6 +15,8 @@ const CodeList = () => import("@/pages/Dashboard/Code/CodeList.vue");
 const PaymentList = () => import("@/pages/Dashboard/Payment/PaymentList.vue");
 // const Store = () => import("@/pages/Dashboard/Store/StoreDetail.vue");
 const StoreList = () => import("@/pages/Dashboard/Store/StoreList.vue");
+const ConfigList = () => import("@/pages/Dashboard/Config/ConfigList.vue");
+const Config = () => import("@/pages/Dashboard/Config/Config.vue");
 const Pricing = () => import("@/pages/Dashboard/Pages/Pricing.vue");
 const TimeLine = () => import("@/pages/Dashboard/Pages/TimeLinePage.vue");
 const RtlSupport = () => import("@/pages/Dashboard/Pages/RtlSupport.vue");
@@ -294,6 +296,27 @@ let storeMenu = {
   ]
 };
 
+let configMenu = {
+  path: "/config",
+  component: DashboardLayout,
+  redirect: "/config/index",
+  children: [
+    {
+      path: "index",
+      name: "配置列表",
+      component: ConfigList,
+      meta: {
+        keepAlive: true
+      }
+    },
+    {
+      path: ":key",
+      name: "配置详情",
+      component: Config
+    }
+  ]
+};
+
 let userMenu = {
   path: "/user",
   component: DashboardLayout,
@@ -358,6 +381,7 @@ const routes = [
   codeMenu,
   paymentMenu,
   storeMenu,
+  configMenu,
   userMenu,
   authPages,
   {

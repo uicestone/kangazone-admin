@@ -1,6 +1,6 @@
 {
   "name": "kangazone-admin",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
@@ -32,6 +32,7 @@
     "vue": "^2.6.10",
     "vue-clickaway": "^2.2.2",
     "vue-datetime": "^1.0.0-beta.10",
+    "vue-json-editor": "^1.4.0",
     "vue-material": "^1.0.0-beta-11",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.6",
