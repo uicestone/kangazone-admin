@@ -16,7 +16,6 @@
                 <vue-json-editor
                   v-model="value"
                   :expandedOnStart="true"
-                  @json-change="onValueChange"
                   lang="zh"
                 ></vue-json-editor>
               </div>
@@ -53,6 +52,11 @@ export default {
         { key: this.$route.params.key },
         this.value
       )).body[this.key];
+
+      if (typeof this.value !== "object") {
+        this.value = { [this.key]: this.value };
+      }
+
       this.$notify({
         message: "保存成功",
         icon: "check",
@@ -60,14 +64,14 @@ export default {
         verticalAlign: "bottom",
         type: "success"
       });
-    },
-    onValueChange(value) {
-      // this.value = value;
     }
   },
   async mounted() {
     const config = (await Config.get({ key: this.$route.params.key })).body;
     this.value = config[this.key];
+    if (typeof this.value !== "object") {
+      this.value = { [this.key]: this.value };
+    }
   }
 };
 </script>
