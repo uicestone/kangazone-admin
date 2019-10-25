@@ -8,7 +8,85 @@
           </div>
           <h4 class="title">预约列表</h4>
         </md-card-header>
-        <md-card-content>
+        <md-card-content class="paginated-table">
+          <div
+            class="md-toolbar md-table-toolbar md-transparent md-theme-default md-elevation-0 md-layout mb-2"
+          >
+            <div class="md-layout">
+              <md-datepicker
+                v-model="searchQuery.date"
+                :md-model-type="String"
+                md-immediately
+                class="md-layout-item md-size-20 md-xsmall-size-100"
+                ><label>日期</label>
+              </md-datepicker>
+
+              <md-field class="md-layout-item md-size-15 md-xsmall-size-100">
+                <label>筛选状态</label>
+                <md-select v-model="searchQuery.status" multiple>
+                  <md-option
+                    v-for="(name, status) in bookingStatusNames"
+                    :key="status"
+                    :value="status"
+                    >{{ name }}</md-option
+                  >
+                </md-select>
+              </md-field>
+
+              <md-field class="md-layout-item md-size-15 md-xsmall-size-100">
+                <label>筛选类型</label>
+                <md-select v-model="searchQuery.type">
+                  <md-option value="">全部类型</md-option>
+                  <md-option
+                    v-for="(name, type) in {
+                      play: '自由游玩',
+                      party: '派对'
+                    }"
+                    :key="type"
+                    :value="type"
+                    >{{ name }}</md-option
+                  >
+                </md-select>
+              </md-field>
+
+              <md-field class="md-layout-item md-size-15 md-xsmall-size-100">
+                <label>搜索客户</label>
+                <md-input
+                  type="search"
+                  clearable
+                  v-model="searchQuery.customerKeyword"
+                >
+                </md-input>
+              </md-field>
+
+              <md-field class="md-layout-item md-size-15 md-xsmall-size-100">
+                <label>手环编号</label>
+                <md-input type="search" clearable v-model="searchQuery.bandId">
+                </md-input>
+              </md-field>
+
+              <md-field class="md-layout-item md-size-15 md-xsmall-size-100">
+                <label>优惠</label>
+                <md-select v-model="searchQuery.coupon">
+                  <md-option value="">不指定</md-option>
+                  <md-option
+                    v-for="coupon in $config.coupons"
+                    :key="coupon.slug"
+                    :value="coupon.slug"
+                    >{{ coupon.name }}</md-option
+                  >
+                </md-select>
+              </md-field>
+            </div>
+            <div class="toolbar-actions">
+              <md-button class="md-simple" @click="showCreate">
+                手动添加预约
+              </md-button>
+              <md-button class="md-just-icon md-simple" @click="queryData">
+                <md-icon>refresh</md-icon>
+              </md-button>
+            </div>
+          </div>
           <md-table
             :value="queriedData"
             :md-sort.sync="currentSort"
@@ -16,74 +94,6 @@
             :md-sort-fn="noop"
             class="paginated-table table-striped table-hover"
           >
-            <md-table-toolbar class="md-layout mb-2">
-              <div class="md-layout">
-                <md-datepicker
-                  v-model="searchQuery.date"
-                  :md-model-type="String"
-                  md-immediately
-                  class="md-layout-item md-size-20 md-xsmall-size-100"
-                  ><label>日期</label>
-                </md-datepicker>
-
-                <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
-                  <label>筛选状态</label>
-                  <md-select v-model="searchQuery.status" multiple>
-                    <md-option
-                      v-for="(name, status) in bookingStatusNames"
-                      :key="status"
-                      :value="status"
-                      >{{ name }}</md-option
-                    >
-                  </md-select>
-                </md-field>
-
-                <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
-                  <label>筛选类型</label>
-                  <md-select v-model="searchQuery.type">
-                    <md-option value="">全部类型</md-option>
-                    <md-option
-                      v-for="(name, type) in {
-                        play: '自由游玩',
-                        party: '派对'
-                      }"
-                      :key="type"
-                      :value="type"
-                      >{{ name }}</md-option
-                    >
-                  </md-select>
-                </md-field>
-
-                <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
-                  <label>搜索客户</label>
-                  <md-input
-                    type="search"
-                    clearable
-                    v-model="searchQuery.customerKeyword"
-                  >
-                  </md-input>
-                </md-field>
-
-                <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
-                  <label>手环编号</label>
-                  <md-input
-                    type="search"
-                    clearable
-                    v-model="searchQuery.bandId"
-                  >
-                  </md-input>
-                </md-field>
-              </div>
-              <div class="toolbar-actions">
-                <md-button class="md-simple" @click="showCreate">
-                  手动添加预约
-                </md-button>
-                <md-button class="md-just-icon md-simple" @click="queryData">
-                  <md-icon>refresh</md-icon>
-                </md-button>
-              </div>
-            </md-table-toolbar>
-
             <md-table-row
               slot="md-table-row"
               md-selectable="single"
