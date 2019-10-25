@@ -77,6 +77,9 @@ export default {
       ],
       firstDayOfAWeek: 1
     };
+    this.$http.get("config").then(res => {
+      this.$config = res.body;
+    });
     try {
       this.$user = await this.auth();
     } catch (e) {

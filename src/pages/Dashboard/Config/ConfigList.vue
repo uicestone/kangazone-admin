@@ -2,9 +2,9 @@
   <div class="md-layout">
     <div class="md-layout-item">
       <md-card>
-        <md-card-header class="md-card-header-icon md-card-header-primary">
+        <md-card-header class="md-card-header-icon">
           <div class="card-icon">
-            <md-icon>style</md-icon>
+            <md-icon>settings</md-icon>
           </div>
           <h4 class="title">配置列表</h4>
         </md-card-header>

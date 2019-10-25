@@ -90,9 +90,12 @@
               slot-scope="{ item }"
               @click="showDetail(item)"
             >
-              <md-table-cell md-label="门店" md-sort-by="store.name">{{
-                item.store.name
-              }}</md-table-cell>
+              <md-table-cell
+                md-label="门店"
+                md-sort-by="store.name"
+                style="min-width:100px"
+                >{{ item.store.name }}</md-table-cell
+              >
               <md-table-cell
                 md-label="客户"
                 md-sort-by="customer.name"
@@ -119,8 +122,15 @@
               >
               <md-table-cell md-label="价格/已付" md-sort-by="socksCount"
                 >{{ item.price }} /
-                {{ item.payments | paidAmount }}</md-table-cell
+                {{ item.payments | paidAmount }}
+              </md-table-cell>
+              <md-table-cell
+                md-label="优惠"
+                md-sort-by="coupon"
+                style="min-width:150px"
               >
+                {{ item.coupon | couponName }}
+              </md-table-cell>
               <md-table-cell md-label="状态" md-sort-by="status">{{
                 item.status | bookingStatusName
               }}</md-table-cell>

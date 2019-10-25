@@ -4,9 +4,9 @@
       <div class="md-layout-item md-size-100 mx-auto">
         <form @submit.prevent="save">
           <md-card>
-            <md-card-header class="md-card-header-icon md-card-header-primary">
+            <md-card-header class="md-card-header-icon">
               <div class="card-icon">
-                <md-icon>timer</md-icon>
+                <md-icon>settings</md-icon>
               </div>
               <h4 class="title">{{ key }}</h4>
             </md-card-header>

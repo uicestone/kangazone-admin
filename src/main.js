@@ -47,6 +47,17 @@ Object.defineProperty(Vue.prototype, "$isLoading", {
   }
 });
 
+const config = {}; // global config from api
+
+Object.defineProperty(Vue.prototype, "$config", {
+  get() {
+    return config;
+  },
+  set(val) {
+    Object.assign(config, val);
+  }
+});
+
 Object.defineProperty(Vue.prototype, "$user", {
   get() {
     this.$root.user.can = function(cap) {
@@ -133,6 +144,17 @@ Vue.filter("currency", value => {
 
 Vue.filter("paymentGatewayName", gateway => {
   return Vue.prototype.$gatewayNames[gateway];
+});
+
+Vue.filter("couponName", couponSlug => {
+  const coupons = Vue.prototype.$config.coupons;
+  if (!coupons) {
+    return;
+  }
+  const coupon = coupons.find(c => c.slug === couponSlug);
+  if (coupon) {
+    return coupon.name;
+  }
 });
 
 /* eslint-disable no-new */
