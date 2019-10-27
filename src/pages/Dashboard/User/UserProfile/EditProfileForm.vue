@@ -97,7 +97,7 @@
             </md-field>
           </div>
           <div
-            v-if="user.role !== 'customer'"
+            v-if="user.role !== 'customer' || $user.can('manage-user')"
             class="md-layout-item md-small-size-100 md-size-50"
           >
             <md-field>

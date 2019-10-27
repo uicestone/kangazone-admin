@@ -155,6 +155,7 @@ Vue.filter("couponName", couponSlug => {
   if (coupon) {
     return coupon.name;
   }
+  return "-";
 });
 
 /* eslint-disable no-new */
