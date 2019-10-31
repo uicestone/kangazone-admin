@@ -84,7 +84,11 @@
           >
             <md-field>
               <label>卡号</label>
-              <md-input v-model="user.cardNo" type="text" disabled></md-input>
+              <md-input
+                v-model="user.cardNo"
+                type="text"
+                :disabled="!$user.can('edit-user')"
+              ></md-input>
             </md-field>
           </div>
           <div
@@ -109,6 +113,7 @@
               >
                 <md-option value="admin">管理员</md-option>
                 <md-option value="manager">店长</md-option>
+                <md-option value="customer">客人</md-option>
               </md-select>
             </md-field>
           </div>

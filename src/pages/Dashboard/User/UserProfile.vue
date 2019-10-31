@@ -7,6 +7,70 @@
           :user="user"
           :save="save"
         ></edit-profile-form>
+        <md-card class="bookings-card">
+          <md-card-header class="md-card-header-icon md-card-header-primary">
+            <div class="card-icon">
+              <md-icon>play</md-icon>
+            </div>
+            <h4 class="title">最近预约</h4>
+          </md-card-header>
+
+          <md-card-content class="md-layout">
+            <md-table>
+              <md-table-row v-for="booking in userBookings" :key="booking.id">
+                <md-table-cell md-label="日期" md-sort-by="date">{{
+                  booking.date
+                }}</md-table-cell>
+                <md-table-cell md-label="时间" md-sort-by="checkInAt">{{
+                  booking.checkInAt
+                }}</md-table-cell>
+                <!-- <md-table-cell md-label="类型" md-sort-by="type">{{
+                booking.type | bookingTypeName
+              }}</md-table-cell> -->
+                <md-table-cell md-label="时长" md-sort-by="hours">{{
+                  booking.hours ? `${booking.hours}小时` : "畅玩"
+                }}</md-table-cell>
+                <md-table-cell md-label="人数/袜子" md-sort-by="membersCount"
+                  >{{ booking.membersCount }} /
+                  {{ booking.socksCount }}</md-table-cell
+                >
+                <md-table-cell
+                  md-label="优惠"
+                  md-sort-by="coupon"
+                  style="min-width:150px"
+                >
+                  {{ booking.coupon | couponName }}
+                </md-table-cell>
+                <md-table-cell md-label="状态" md-sort-by="status">{{
+                  booking.status | bookingStatusName
+                }}</md-table-cell>
+              </md-table-row>
+            </md-table>
+          </md-card-content>
+        </md-card>
+      </div>
+      <div class="md-layout-item md-medium-size-100 md-size-33 mx-auto">
+        <md-card class="codes-card">
+          <md-card-header class="md-card-header-icon md-card-header-primary">
+            <div class="card-icon">
+              <md-icon>code</md-icon>
+            </div>
+            <h4 class="title">券码</h4>
+          </md-card-header>
+          <md-card-content class="md-layout">
+            <md-table>
+              <md-table-row v-for="code in user.codes" :key="code.id">
+                <md-table-cell md-label="描述">{{ code.title }}</md-table-cell>
+                <md-table-cell md-label="券号">{{
+                  code.id.substr(-6).toUpperCase()
+                }}</md-table-cell>
+                <md-table-cell md-label="已使用">{{
+                  code.used ? "已使用" : "未使用"
+                }}</md-table-cell>
+              </md-table-row>
+            </md-table>
+          </md-card-content>
+        </md-card>
         <md-card class="payments-card">
           <md-card-header class="md-card-header-icon md-card-header-primary">
             <div class="card-icon">
@@ -21,24 +85,24 @@
                 v-for="payment in depositPayments"
                 :key="payment.id"
               >
+                <md-table-cell md-label="创建时间" md-sort-by="createdAt">{{
+                  payment.createdAt | date("MM/DD")
+                }}</md-table-cell>
                 <md-table-cell md-label="金额" md-sort-by="amount"
                   >¥{{ payment.amount }}</md-table-cell
                 >
-                <md-table-cell md-label="完成" md-sort-by="paid">{{
-                  payment.paid ? "是" : "否"
-                }}</md-table-cell>
                 <md-table-cell
                   md-label="描述"
                   md-sort-by="title"
                   style="width:35%"
                   >{{ payment.title }}</md-table-cell
                 >
-                <md-table-cell md-label="通道" md-sort-by="gateway">{{
+                <md-table-cell md-label="完成" md-sort-by="paid">{{
+                  payment.paid ? "付款成功" : "待付款"
+                }}</md-table-cell>
+                <!-- <md-table-cell md-label="通道" md-sort-by="gateway">{{
                   payment.gateway | paymentGatewayName
-                }}</md-table-cell>
-                <md-table-cell md-label="创建时间" md-sort-by="createdAt">{{
-                  payment.createdAt | date
-                }}</md-table-cell>
+                }}</md-table-cell> -->
               </md-table-row>
             </md-table>
           </md-card-content>
@@ -53,7 +117,7 @@
 
 <script>
 import { EditProfileForm } from "@/pages";
-import { User, Payment } from "@/resources";
+import { Booking, User, Payment } from "@/resources";
 
 export default {
   components: {
@@ -65,7 +129,8 @@ export default {
         name: "",
         roles: []
       },
-      depositPayments: []
+      depositPayments: [],
+      userBookings: []
     };
   },
   methods: {
@@ -101,15 +166,21 @@ export default {
         customer: this.user.id,
         attach: "deposit "
       })).body;
+      this.userBookings = (await Booking.get({ customer: this.user.id })).body;
     }
   }
 };
 </script>
 <style lang="scss">
-.payments-card {
-  margin-top: 50px;
+.payments-card,
+.bookings-card,
+.codes-card {
   .md-table {
     width: 100%;
   }
+}
+.bookings-card,
+.payments-card {
+  margin-top: 50px;
 }
 </style>
