@@ -135,11 +135,15 @@
                 {{ item.payments | paidAmount }}
               </md-table-cell>
               <md-table-cell
-                md-label="优惠"
+                md-label="优惠/券码"
                 md-sort-by="coupon"
                 style="min-width:150px"
               >
-                {{ item.coupon | couponName }}
+                <span v-if="item.coupon">{{ item.coupon | couponName }}</span>
+                <span v-else-if="item.code">{{
+                  `${item.code.title} ${item.code.id.substr(-6).toUpperCase()}`
+                }}</span>
+                <span v-else>-</span>
               </md-table-cell>
               <md-table-cell md-label="状态" md-sort-by="status">{{
                 item.status | bookingStatusName
