@@ -127,8 +127,9 @@
               <md-table-cell md-label="时长" md-sort-by="hours">{{
                 item.hours ? `${item.hours}小时` : "畅玩"
               }}</md-table-cell>
-              <md-table-cell md-label="人数/袜子" md-sort-by="membersCount"
-                >{{ item.membersCount }} / {{ item.socksCount }}</md-table-cell
+              <md-table-cell md-label="人 / 袜" md-sort-by="membersCount"
+                >{{ item.membersCount }} / {{ item.kidsCount }} /
+                {{ item.socksCount }}</md-table-cell
               >
               <md-table-cell md-label="价格/已付" md-sort-by="socksCount"
                 >{{ item.price }} /

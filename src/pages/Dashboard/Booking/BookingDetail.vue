@@ -86,7 +86,7 @@
                 </div>
                 <div class="md-layout-item md-small-size-100 md-size-33">
                   <md-field>
-                    <label>时间</label>
+                    <label>入场时间</label>
                     <md-input v-model="booking.checkInAt"></md-input>
                   </md-field>
                 </div>
@@ -94,16 +94,20 @@
               <div
                 class="md-layout-item md-layout md-small-size-100 md-size-50 p-0"
               >
-                <div class="md-layout-item md-small-size-100 md-size-33">
+                <div class="md-layout-item md-small-size-100 md-size-25">
                   <md-field>
                     <label>时长</label>
-                    <md-input v-model="booking.hours" type="number"></md-input>
-                    <span class="md-suffix">小时</span>
+                    <md-input
+                      v-model="booking.hours"
+                      type="number"
+                      min="0"
+                      max="3"
+                    ></md-input>
                   </md-field>
                 </div>
-                <div class="md-layout-item md-small-size-100 md-size-33">
+                <div class="md-layout-item md-small-size-100 md-size-25">
                   <md-field>
-                    <label>人数</label>
+                    <label>成人</label>
                     <md-input
                       v-model="booking.membersCount"
                       type="number"
@@ -111,9 +115,19 @@
                     <span class="md-suffix">位</span>
                   </md-field>
                 </div>
-                <div class="md-layout-item md-small-size-100 md-size-33">
+                <div class="md-layout-item md-small-size-100 md-size-25">
                   <md-field>
-                    <label>袜子数</label>
+                    <label>儿童</label>
+                    <md-input
+                      v-model="booking.kidsCount"
+                      type="number"
+                    ></md-input>
+                    <span class="md-suffix">位</span>
+                  </md-field>
+                </div>
+                <div class="md-layout-item md-small-size-100 md-size-25">
+                  <md-field>
+                    <label>袜子</label>
                     <md-input
                       v-model="booking.socksCount"
                       type="number"
