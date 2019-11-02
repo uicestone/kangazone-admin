@@ -118,6 +118,15 @@
             </md-field>
           </div>
           <div
+            v-if="user.role === 'customer'"
+            class="md-layout-item md-small-size-100 md-size-50"
+          >
+            <md-field>
+              <label>会员等级</label>
+              <md-input v-model="user.cardType" type="text" disabled></md-input>
+            </md-field>
+          </div>
+          <div
             v-if="user.role !== 'customer'"
             class="md-layout-item md-small-size-100 md-size-50"
           >

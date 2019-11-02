@@ -8,9 +8,9 @@
           :save="save"
         ></edit-profile-form>
         <md-card class="bookings-card">
-          <md-card-header class="md-card-header-icon md-card-header-primary">
+          <md-card-header class="md-card-header-icon md-card-header-warning">
             <div class="card-icon">
-              <md-icon>play</md-icon>
+              <md-icon>history</md-icon>
             </div>
             <h4 class="title">最近预约</h4>
           </md-card-header>
@@ -51,7 +51,7 @@
       </div>
       <div class="md-layout-item md-medium-size-100 md-size-33 mx-auto">
         <md-card class="codes-card">
-          <md-card-header class="md-card-header-icon md-card-header-primary">
+          <md-card-header class="md-card-header-icon md-card-header-blue">
             <div class="card-icon">
               <md-icon>code</md-icon>
             </div>
@@ -72,7 +72,7 @@
           </md-card-content>
         </md-card>
         <md-card class="payments-card">
-          <md-card-header class="md-card-header-icon md-card-header-primary">
+          <md-card-header class="md-card-header-icon md-card-header-danger">
             <div class="card-icon">
               <md-icon>payment</md-icon>
             </div>
