@@ -12,7 +12,7 @@
           <div
             class="md-toolbar md-table-toolbar md-transparent md-theme-default md-elevation-0 md-layout mb-2"
           >
-            <div class="md-layout-item" style="flex:0;flex-basis:160px">
+            <div class="md-layout-item" style="flex:0;flex-basis:200px">
               总金额：{{ totalAmount | currency }}
             </div>
             <div
