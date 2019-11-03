@@ -111,6 +111,7 @@
                     <md-input
                       v-model="booking.membersCount"
                       type="number"
+                      min="0"
                     ></md-input>
                     <span class="md-suffix">位</span>
                   </md-field>
@@ -121,6 +122,7 @@
                     <md-input
                       v-model="booking.kidsCount"
                       type="number"
+                      min="0"
                     ></md-input>
                     <span class="md-suffix">位</span>
                   </md-field>
@@ -131,6 +133,7 @@
                     <md-input
                       v-model="booking.socksCount"
                       type="number"
+                      min="0"
                     ></md-input>
                     <span class="md-suffix">双</span>
                   </md-field>
