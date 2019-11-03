@@ -101,9 +101,18 @@
               slot-scope="{ item }"
               @click="showDetail(item)"
             >
-              <md-table-cell md-label="客人" md-sort-by="customer.name">{{
-                item.customer.name
-              }}</md-table-cell>
+              <md-table-cell
+                md-label="客户"
+                md-sort-by="customer.name"
+                @click.native.stop="goToCustomer(item.customer)"
+                >{{ item.customer.name
+                }}<span v-if="item.customer.mobile">{{
+                  item.customer.mobile.substr(-4)
+                }}</span
+                ><md-icon class="mini"
+                  >keyboard_arrow_right</md-icon
+                ></md-table-cell
+              >
               <md-table-cell md-label="金额" md-sort-by="amount">{{
                 item.amountDeposit || item.amount | currency
               }}</md-table-cell>
@@ -221,6 +230,9 @@ export default {
     showCreate() {
       // this.$router.push("/payment/add");
     },
+    goToCustomer(customer) {
+      this.$router.push(`/user/${customer.id}`);
+    },
     goToRelatedItem(item) {
       const attach = item.attach.split(" ");
       switch (attach[0]) {
@@ -273,5 +285,11 @@ export default {
 * >>> .md-datepicker .md-date-icon {
   margin-top: 12px;
   margin-bottom: 0;
+}
+.md-icon.mini {
+  height: 16px;
+  width: 16px;
+  min-width: 16px;
+  font-size: 16px !important;
 }
 </style>

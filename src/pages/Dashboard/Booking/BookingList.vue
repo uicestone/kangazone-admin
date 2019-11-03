@@ -61,7 +61,7 @@
 
               <md-field class="md-layout-item md-size-15 md-xsmall-size-100">
                 <label>手环编号</label>
-                <md-input type="search" clearable v-model="searchQuery.bandId">
+                <md-input type="number" clearable v-model="searchQuery.bandId">
                 </md-input>
               </md-field>
 
@@ -114,11 +114,15 @@
                 <span v-if="item.customer.mobile">{{
                   item.customer.mobile.substr(-4)
                 }}</span>
+                <md-icon class="mini">keyboard_arrow_right</md-icon>
               </md-table-cell>
+              <md-table-cell md-label="状态" md-sort-by="status">{{
+                item.status | bookingStatusName
+              }}</md-table-cell>
               <md-table-cell md-label="日期" md-sort-by="date">{{
                 item.date
               }}</md-table-cell>
-              <md-table-cell md-label="时间" md-sort-by="checkInAt">{{
+              <md-table-cell md-label="入场时间" md-sort-by="checkInAt">{{
                 item.checkInAt
               }}</md-table-cell>
               <!-- <md-table-cell md-label="类型" md-sort-by="type">{{
@@ -146,9 +150,6 @@
                 }}</span>
                 <span v-else>-</span>
               </md-table-cell>
-              <md-table-cell md-label="状态" md-sort-by="status">{{
-                item.status | bookingStatusName
-              }}</md-table-cell>
               <md-table-cell md-label="创建时间" md-sort-by="createdAt">{{
                 item.createdAt | date
               }}</md-table-cell>
@@ -297,5 +298,14 @@ export default {
 * >>> .md-datepicker .md-date-icon {
   margin-top: 12px;
   margin-bottom: 0;
+}
+.md-icon.mini {
+  height: 16px;
+  width: 16px;
+  min-width: 16px;
+  font-size: 16px !important;
+}
+.md-input {
+  max-width: 100%;
 }
 </style>

@@ -8,7 +8,58 @@
           </div>
           <h4 class="title">用户列表</h4>
         </md-card-header>
-        <md-card-content>
+        <md-card-content class="paginated-table">
+          <div
+            class="md-toolbar md-table-toolbar md-transparent md-theme-default md-elevation-0 md-layout mb-2"
+          >
+            <div class="md-layout-item" style="flex:0;flex-basis:160px">
+              总余额：{{ totalCredit | currency }}
+            </div>
+            <div
+              class="md-layout md-layout-item md-alignment-center-right search-query"
+            >
+              <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
+                <md-input
+                  type="search"
+                  clearable
+                  placeholder="搜索"
+                  style="width: 200px;"
+                  v-model="searchQuery.keyword"
+                >
+                </md-input>
+              </md-field>
+              <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
+                <label>筛选角色</label>
+                <md-select v-model="searchQuery.role">
+                  <md-option
+                    v-for="(name, type) in {
+                      admin: '管理员',
+                      manager: '店员',
+                      customer: '客户'
+                    }"
+                    :key="type"
+                    :value="type"
+                    >{{ name }}</md-option
+                  >
+                </md-select>
+              </md-field>
+              <md-field
+                class="md-layout-item md-size-20 md-xsmall-size-100"
+                v-if="searchQuery.role === 'customer'"
+              >
+                <label>会员类型</label>
+                <md-select v-model="searchQuery.membership" multiple>
+                  <md-option value="code">次卡</md-option>
+                  <md-option value="deposit">充值</md-option>
+                </md-select>
+              </md-field>
+            </div>
+            <div class="toolbar-actions">
+              <md-button class="md-primary" @click="showCreate">
+                添加用户
+              </md-button>
+            </div>
+          </div>
           <md-table
             :value="queriedData"
             :md-sort.sync="currentSort"
@@ -16,41 +67,6 @@
             :md-sort-fn="noop"
             class="paginated-table table-striped table-hover"
           >
-            <md-table-toolbar class="md-layout mb-2">
-              <div class="md-layout">
-                <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
-                  <md-input
-                    type="search"
-                    clearable
-                    placeholder="搜索"
-                    style="width: 200px;"
-                    v-model="searchQuery.keyword"
-                  >
-                  </md-input>
-                </md-field>
-                <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
-                  <label>筛选角色</label>
-                  <md-select v-model="searchQuery.role">
-                    <md-option
-                      v-for="(name, type) in {
-                        admin: '管理员',
-                        manager: '店员',
-                        customer: '客户'
-                      }"
-                      :key="type"
-                      :value="type"
-                      >{{ name }}</md-option
-                    >
-                  </md-select>
-                </md-field>
-              </div>
-              <div class="toolbar-actions">
-                <md-button class="md-primary" @click="showCreate">
-                  添加用户
-                </md-button>
-              </div>
-            </md-table-toolbar>
-
             <md-table-row
               slot="md-table-row"
               md-selectable="single"
@@ -77,9 +93,15 @@
               >
               <md-table-cell
                 md-label="余额"
-                md-sort-by="credit"
+                md-sort-by="creditDeposit"
                 v-if="searchQuery.role === 'customer'"
-                >{{ item.credit | currency }}</md-table-cell
+                ><div v-if="item.credit">
+                  {{ item.creditDeposit }} 赠{{ item.creditReward }}
+                </div>
+                <div v-if="item.codeAmount">券值：{{ item.codeAmount }}</div>
+                <div v-if="!item.credit && !item.codeAmount">
+                  -
+                </div></md-table-cell
               >
               <md-table-cell md-label="注册时间" md-sort-by="createdAt">{{
                 item.createdAt | date
@@ -130,7 +152,8 @@ export default {
       },
       searchQuery: { role: "customer" },
       searchDelayTimeout: null,
-      queriedData: []
+      queriedData: [],
+      totalCredit: null
     };
   },
   mounted() {
@@ -164,6 +187,7 @@ export default {
       const response = await User.get(this.query);
       this.queriedData = response.body;
       this.pagination.total = Number(response.headers.map["items-total"][0]);
+      this.totalCredit = Number(response.headers.map["total-credit"][0]);
     },
     showDetail(item) {
       this.$router.push(`/user/${item.id}`);
