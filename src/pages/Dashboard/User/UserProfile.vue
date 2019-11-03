@@ -7,7 +7,7 @@
           :user="user"
           :save="save"
         ></edit-profile-form>
-        <md-card class="bookings-card">
+        <md-card class="bookings-card" v-if="user.role === 'customer'">
           <md-card-header class="md-card-header-icon md-card-header-warning">
             <div class="card-icon">
               <md-icon>history</md-icon>
@@ -49,7 +49,10 @@
           </md-card-content>
         </md-card>
       </div>
-      <div class="md-layout-item md-medium-size-100 md-size-33 mx-auto">
+      <div
+        class="md-layout-item md-medium-size-100 md-size-33 mx-auto"
+        v-if="user.role === 'customer'"
+      >
         <md-card class="codes-card">
           <md-card-header class="md-card-header-icon md-card-header-blue">
             <div class="card-icon">

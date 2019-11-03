@@ -207,6 +207,9 @@ export default {
     },
     searchQuery: {
       handler() {
+        if (this.searchQuery.role !== "customer") {
+          delete this.searchQuery.membership;
+        }
         clearTimeout(this.searchDelayTimeout);
         this.searchDelayTimeout = setTimeout(() => {
           this.queryData();
