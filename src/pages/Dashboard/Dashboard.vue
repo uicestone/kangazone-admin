@@ -1,8 +1,23 @@
 <template>
   <div class="md-layout">
     <div class="md-layout-item md-size-100 md-layout md-alignment-center-right">
-      <div class="md-layout-item md-size-20 stats-date">
+      <div class="md-layout-item md-size-20 md-xsmall-size-100 stats-date">
         <md-datepicker v-model="date" :md-model-type="String" md-immediately />
+      </div>
+      <div
+        class="md-layout-item md-size-20 md-xsmall-size-100 stats-date"
+        style="display:flex;justify-content:space-between"
+      >
+        <md-button class="md-info" style="flex:0" @click="addDate(-1)">
+          <span class="md-label">
+            <md-icon>keyboard_arrow_left</md-icon>
+          </span>
+          前一天</md-button
+        >
+        <md-button class="md-info" style="flex:0" @click="addDate(1)" :disabled="date >= today">
+          后一天
+          <md-icon>keyboard_arrow_right</md-icon>
+        </md-button>
       </div>
     </div>
     <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
@@ -277,6 +292,7 @@ export default {
   data() {
     return {
       date: moment().format("YYYY-MM-DD"),
+      today: moment().format("YYYY-MM-DD"),
       stats: {
         checkedInCount: null,
         dueCount: null,
@@ -306,6 +322,11 @@ export default {
     };
   },
   methods: {
+    addDate(add) {
+      this.date = moment(this.date)
+        .add(add, "days")
+        .format("YYYY-MM-DD");
+    },
     async updateStats() {
       this.stats = (await this.$http.get(
         `stats${this.date ? "/" + this.date : ""}`

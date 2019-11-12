@@ -390,7 +390,7 @@ const routes = [
     children: [
       {
         path: "dashboard",
-        name: "Dashboard",
+        name: "数据统计",
         components: { default: Dashboard }
       },
       {
