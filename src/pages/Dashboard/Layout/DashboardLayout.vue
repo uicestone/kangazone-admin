@@ -39,22 +39,12 @@
           :link="{ name: '系统配置', icon: 'settings', path: '/config' }"
         >
         </sidebar-item>
+        <sidebar-item
+          :link="{ name: '数据统计', icon: 'dashboard', path: '/dashboard' }"
+        >
+        </sidebar-item>
       </template>
       <template slot="links" v-if="inDevelopment">
-        <sidebar-item
-          v-if="$route.meta.rtlActive"
-          :link="{
-            name: 'لوحة القيادةة',
-            icon: 'dashboard',
-            path: '/dashboard'
-          }"
-        >
-        </sidebar-item>
-        <sidebar-item
-          v-else
-          :link="{ name: 'Dashboard', icon: 'dashboard', path: '/dashboard' }"
-        >
-        </sidebar-item>
         <sidebar-item
           v-if="$route.meta.rtlActive"
           :link="{ name: 'صفحات', icon: 'image' }"

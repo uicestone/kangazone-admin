@@ -160,6 +160,11 @@ export default {
   mounted() {
     this.updateChartId();
     this.$nextTick(this.initChart);
+  },
+  watch: {
+    chartData() {
+      this.initChart();
+    }
   }
 };
 </script>

@@ -283,10 +283,17 @@ export default {
   methods: {
     async save() {
       if (this.$route.params.id === "add") {
-        this.booking = (await Booking.save(this.booking)).body;
+        this.booking = (await Booking.save(this.booking, {
+          bypassBandIdsCheck: true,
+          authBands: false
+        })).body;
       } else {
         this.booking = (await Booking.update(
-          { id: this.$route.params.id },
+          {
+            id: this.$route.params.id,
+            bypassBandIdsCheck: true,
+            authBands: false
+          },
           this.booking
         )).body;
       }

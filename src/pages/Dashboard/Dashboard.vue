@@ -1,43 +1,47 @@
 <template>
   <div class="md-layout">
+    <div class="md-layout-item md-size-100 md-layout md-alignment-center-right">
+      <div class="md-layout-item md-size-20 stats-date">
+        <md-datepicker v-model="date" :md-model-type="String" md-immediately />
+      </div>
+    </div>
     <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
-      <stats-card header-color="blue">
+      <stats-card header-color="primary">
         <template slot="header">
           <div class="card-icon">
-            <i class="fab fa-twitter"></i>
+            <md-icon>playlist_add_check</md-icon>
           </div>
-          <p class="category">Folowers</p>
+          <p class="category">当日门票收入</p>
           <h3 class="title">
-            +<animated-number :value="245"></animated-number>
+            ¥ <animated-number :value="stats.paidAmount"></animated-number>
           </h3>
         </template>
 
         <template slot="footer">
           <div class="stats">
-            <md-icon>update</md-icon>
-            Just Updated
+            <md-icon>bookmark_border</md-icon>
+            含现场支付、余额消费和次卡核销
           </div>
         </template>
       </stats-card>
     </div>
     <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
-      <stats-card header-color="rose">
+      <stats-card header-color="warning">
         <template slot="header">
           <div class="card-icon">
-            <md-icon>equalizer</md-icon>
+            <md-icon>payment</md-icon>
           </div>
-          <p class="category">Website Visits</p>
+          <p class="category">当日充值收入</p>
           <h3 class="title">
-            <animated-number :value="75"></animated-number>.<animated-number
-              :value="521"
-            ></animated-number>
+            ¥ <animated-number :value="stats.depositAmount"></animated-number>
           </h3>
         </template>
 
         <template slot="footer">
           <div class="stats">
-            <md-icon>local_offer</md-icon>
-            Tracked from Google Analytics
+            <md-icon>bookmark_border</md-icon>
+            其中次卡 ¥
+            <animated-number :value="stats.codeDepositAmount"></animated-number>
           </div>
         </template>
       </stats-card>
@@ -48,38 +52,37 @@
           <div class="card-icon">
             <md-icon>store</md-icon>
           </div>
-          <p class="category">Revenue</p>
+          <p class="category">当日入场人数</p>
           <h3 class="title">
-            $ <animated-number :value="34"></animated-number>,<animated-number
-              :value="245"
-            ></animated-number>
+            <animated-number :value="stats.customerCount"></animated-number>
           </h3>
         </template>
 
         <template slot="footer">
           <div class="stats">
-            <md-icon>date_range</md-icon>
-            Last <animated-number :value="24"></animated-number> Hours
+            <md-icon>bookmark_border</md-icon>
+            其中儿童人数
+            <animated-number :value="stats.kidsCount"></animated-number>
           </div>
         </template>
       </stats-card>
     </div>
     <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
-      <stats-card header-color="warning">
+      <stats-card header-color="grey">
         <template slot="header">
           <div class="card-icon">
-            <md-icon>weekend</md-icon>
+            <i class="fas fa-socks"></i>
           </div>
-          <p class="category">Bookings</p>
+          <p class="category">当日蹦床袜发放</p>
           <h3 class="title">
-            <animated-number :value="184"></animated-number>
+            <animated-number :value="stats.socksCount"></animated-number> 双
           </h3>
         </template>
 
         <template slot="footer">
           <div class="stats">
-            <md-icon class="text-danger">warning</md-icon>
-            <a href="#pablo">Get More Space...</a>
+            <md-icon>bookmark_border</md-icon>
+            当日累计蹦床袜发放量
           </div>
         </template>
       </stats-card>
@@ -88,11 +91,10 @@
       class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
     >
       <chart-card
-        header-animation="true"
-        :chart-data="emailsSubscriptionChart.data"
-        :chart-options="emailsSubscriptionChart.options"
-        :chart-responsive-options="emailsSubscriptionChart.responsiveOptions"
-        chart-type="Bar"
+        header-animation="false"
+        :chart-data="dailyCustomersChart.data"
+        :chart-options="dailyCustomersChart.options"
+        chart-type="Line"
         chart-inside-header
         background-color="rose"
       >
@@ -107,16 +109,16 @@
         </md-button>
 
         <template slot="content">
-          <h4 class="title">Website Views</h4>
+          <h4 class="title">每日人数</h4>
           <p class="category">
-            Last Campaign Performance
+            最近一周每日累计入场人数
           </p>
         </template>
 
         <template slot="footer">
           <div class="stats">
             <md-icon>access_time</md-icon>
-            updated <animated-number :value="10"></animated-number> days ago
+            刚刚更新
           </div>
         </template>
       </chart-card>
@@ -125,8 +127,9 @@
       class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
     >
       <chart-card
-        :chart-data="dailySalesChart.data"
-        :chart-options="dailySalesChart.options"
+        header-animation="false"
+        :chart-data="dailyBookingPaymentChart.data"
+        :chart-options="dailyBookingPaymentChart.options"
         chart-type="Line"
         chart-inside-header
         background-color="green"
@@ -141,20 +144,20 @@
         </md-button>
 
         <template slot="content">
-          <h4 class="title">Daily Sales</h4>
+          <h4 class="title">每日门票收入</h4>
           <p class="category">
-            <span class="text-success"
+            <!-- <span class="text-success"
               ><i class="fas fa-long-arrow-alt-up"></i>
               <animated-number :value="55"></animated-number>%
-            </span>
-            increase in today sales.
+            </span> -->
+            最近一周每日门票收入（含余额和次卡核销）
           </p>
         </template>
 
         <template slot="footer">
           <div class="stats">
             <md-icon>access_time</md-icon>
-            updated <animated-number :value="4"></animated-number> minutes ago
+            刚刚更新
           </div>
         </template>
       </chart-card>
@@ -163,8 +166,9 @@
       class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
     >
       <chart-card
-        :chart-data="dataCompletedTasksChart.data"
-        :chart-options="dataCompletedTasksChart.options"
+        header-animation="false"
+        :chart-data="dailyDepositPaymentChart.data"
+        :chart-options="dailyDepositPaymentChart.options"
         chart-type="Line"
         chart-inside-header
         background-color="blue"
@@ -179,163 +183,77 @@
         </md-button>
 
         <template slot="content">
-          <h4 class="title">Completed Tasks</h4>
+          <h4 class="title">每日充值收入</h4>
           <p class="category">
-            Last Campaign Performance
+            最近一周每日充值和次卡销售收入
           </p>
         </template>
 
         <template slot="footer">
           <div class="stats">
             <md-icon>access_time</md-icon>
-            campaign sent
-            <animated-number :value="26"></animated-number> minutes ago
+            刚刚更新
           </div>
         </template>
       </chart-card>
     </div>
-    <div class="md-layout-item md-size-100">
-      <global-sales-card header-color="green">
+    <div class="md-layout-item md-size-50">
+      <global-sales-card header-color="primary">
         <template slot="header">
           <div class="card-icon">
             <md-icon>language</md-icon>
           </div>
-          <h4 class="title">Global Sales by Top Locations</h4>
+          <h4 class="title">当日按收款方式收入额</h4>
         </template>
 
         <template slot="content">
           <div class="md-layout">
-            <div class="md-layout-item md-size-50">
-              <global-sales-table></global-sales-table>
+            <div class="md-layout-item md-size-100">
+              <md-table v-model="paidAmountByGatewayNames">
+                <md-table-row slot="md-table-row" slot-scope="{ item }">
+                  <md-table-cell>{{ item.name }}</md-table-cell>
+                  <md-table-cell>{{ item.amount }}</md-table-cell>
+                </md-table-row>
+              </md-table>
             </div>
-            <div class="md-layout-item md-size-50">
+            <!-- <div class="md-layout-item md-size-50">
               <async-world-map class="map" :data="mapData"></async-world-map>
-            </div>
+            </div> -->
           </div>
         </template>
       </global-sales-card>
     </div>
-    <div
-      class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-    >
-      <product-card header-animation="true">
-        <img class="img" slot="imageHeader" :src="product1" />
-        <md-icon slot="fixed-button">build</md-icon>
-        <template slot="first-button">
-          <md-icon>art_track</md-icon>
-          <md-tooltip md-direction="bottom">View</md-tooltip>
-        </template>
-        <template slot="second-button">
-          <md-icon>edit</md-icon>
-          <md-tooltip md-direction="bottom">Edit</md-tooltip>
-        </template>
-        <template slot="third-button">
-          <md-icon>close</md-icon>
-          <md-tooltip md-direction="bottom">Remove</md-tooltip>
-        </template>
-        <h4 slot="title" class="title">
-          <a href="#pablo">Cozy 5 Stars Apartment</a>
-        </h4>
-        <div slot="description" class="card-description">
-          The place is close to Barceloneta Beach and bus stop just 2 min by
-          walk and near to "Naviglio" where you can enjoy the main night life in
-          Barcelona.
-        </div>
-        <template slot="footer">
-          <div class="price">
-            <h4>$899/night</h4>
+    <div class="md-layout-item md-size-50">
+      <global-sales-card header-color="warning">
+        <template slot="header">
+          <div class="card-icon">
+            <md-icon>language</md-icon>
           </div>
-          <div class="stats">
-            <p class="category">
-              <md-icon>place</md-icon>
-              Barcelona, Spain
-            </p>
+          <h4 class="title">当日按优惠核销人数</h4>
+        </template>
+
+        <template slot="content">
+          <div class="md-layout">
+            <div class="md-layout-item md-size-100">
+              <md-table v-model="stats.couponsCount">
+                <md-table-row slot="md-table-row" slot-scope="{ item }">
+                  <md-table-cell>{{ item.name }}</md-table-cell>
+                  <md-table-cell>{{ item.count }}</md-table-cell>
+                </md-table-row>
+              </md-table>
+            </div>
+            <!-- <div class="md-layout-item md-size-50">
+              <async-world-map class="map" :data="mapData"></async-world-map>
+            </div> -->
           </div>
         </template>
-      </product-card>
-    </div>
-    <div
-      class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-    >
-      <product-card header-animation="true">
-        <img class="img" slot="imageHeader" :src="product2" />
-        <md-icon slot="fixed-button">build</md-icon>
-        <template slot="first-button">
-          <md-icon>art_track</md-icon>
-          <md-tooltip md-direction="bottom">View</md-tooltip>
-        </template>
-        <template slot="second-button">
-          <md-icon>edit</md-icon>
-          <md-tooltip md-direction="bottom">Edit</md-tooltip>
-        </template>
-        <template slot="third-button">
-          <md-icon>close</md-icon>
-          <md-tooltip md-direction="bottom">Remove</md-tooltip>
-        </template>
-        <h4 slot="title" class="title">
-          <a href="#pablo">Office Studio</a>
-        </h4>
-        <div slot="description" class="card-description">
-          The place is close to Metro Station and bus stop just 2 min by walk
-          and near to "Naviglio" where you can enjoy the night life in London,
-          UK.
-        </div>
-        <template slot="footer">
-          <div class="price">
-            <h4>$1.119/night</h4>
-          </div>
-          <div class="stats">
-            <p class="category">
-              <md-icon>place</md-icon>
-              London, UK
-            </p>
-          </div>
-        </template>
-      </product-card>
-    </div>
-    <div
-      class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-33"
-    >
-      <product-card header-animation="true">
-        <img class="img" slot="imageHeader" :src="product3" />
-        <md-icon slot="fixed-button">build</md-icon>
-        <template slot="first-button">
-          <md-icon>art_track</md-icon>
-          <md-tooltip md-direction="bottom">View</md-tooltip>
-        </template>
-        <template slot="second-button">
-          <md-icon>edit</md-icon>
-          <md-tooltip md-direction="bottom">Edit</md-tooltip>
-        </template>
-        <template slot="third-button">
-          <md-icon>close</md-icon>
-          <md-tooltip md-direction="bottom">Remove</md-tooltip>
-        </template>
-        <h4 slot="title" class="title">
-          <a href="#pablo">Beautiful Castle</a>
-        </h4>
-        <div slot="description" class="card-description">
-          The place is close to Metro Station and bus stop just 2 min by walk
-          and near to "Naviglio" where you can enjoy the main night life in
-          Milan.
-        </div>
-        <template slot="footer">
-          <div class="price">
-            <h4>$459/night</h4>
-          </div>
-          <div class="stats">
-            <p class="category">
-              <md-icon>place</md-icon>
-              Milan, Italy
-            </p>
-          </div>
-        </template>
-      </product-card>
+      </global-sales-card>
     </div>
   </div>
 </template>
 
 <script>
+import moment from "moment";
 import AsyncWorldMap from "@/components/WorldMap/AsyncWorldMap.vue";
 import {
   StatsCard,
@@ -358,108 +276,162 @@ export default {
   },
   data() {
     return {
-      product1: "./img/card-2.jpg",
-      product2: "./img/card-3.jpg",
-      product3: "./img/card-1.jpg",
-      seq2: 0,
-      mapData: {
-        AU: 760,
-        BR: 550,
-        CA: 120,
-        DE: 1300,
-        FR: 540,
-        GB: 690,
-        GE: 200,
-        IN: 200,
-        RO: 600,
-        RU: 300,
-        US: 2920
+      date: moment().format("YYYY-MM-DD"),
+      stats: {
+        checkedInCount: null,
+        dueCount: null,
+        customerCount: null,
+        kidsCount: null,
+        paidAmount: null,
+        depositAmount: null,
+        codeDepositAmount: null,
+        socksCount: null,
+        paidAmountByGateways: {},
+        couponsCount: [],
+        codesCount: [],
+        depositsCount: [],
+        dailyCustomers: [],
+        dailyBookingPayment: [],
+        dailyDepositPayment: []
       },
-      dailySalesChart: {
+      weekdayMapping: {
+        1: "一",
+        2: "二",
+        3: "三",
+        4: "四",
+        5: "五",
+        6: "六",
+        7: "日"
+      }
+    };
+  },
+  methods: {
+    async updateStats() {
+      this.stats = (await this.$http.get(
+        `stats${this.date ? "/" + this.date : ""}`
+      )).body;
+    }
+  },
+  computed: {
+    paidAmountByGatewayNames() {
+      return Object.keys(this.stats.paidAmountByGateways).map(gateway => ({
+        name: this.$gatewayNames[gateway],
+        amount: this.stats.paidAmountByGateways[gateway]
+      }));
+    },
+    // dailyCustomersChart() {
+    //   return {
+    //     data: {
+    //       labels: ["M", "T", "W", "T", "F", "S", "S"],
+    //       series: [[12, 17, 7, 17, 23, 18, 38]]
+    //     },
+    //     options: {
+    //       lineSmooth: this.$Chartist.Interpolation.cardinal({
+    //         tension: 0
+    //       }),
+    //       low: 0,
+    //       high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+    //       chartPadding: {
+    //         top: 0,
+    //         right: 0,
+    //         bottom: 0,
+    //         left: 0
+    //       }
+    //     }
+    //   };
+    // },
+    dailyCustomersChart() {
+      const values = this.stats.dailyCustomers.map(
+        d => d.membersCount + d.kidsCount
+      );
+      const labels = this.stats.dailyCustomers.map(
+        d => this.weekdayMapping[d.day]
+      );
+      const high = Math.max(...values) * 1.05;
+      const low = Math.min(...values) * 0.95;
+      return {
         data: {
-          labels: ["M", "T", "W", "T", "F", "S", "S"],
-          series: [[12, 17, 7, 17, 23, 18, 38]]
-        },
-        options: {
-          lineSmooth: this.$Chartist.Interpolation.cardinal({
-            tension: 0
-          }),
-          low: 0,
-          high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0
-          }
-        }
-      },
-      dataCompletedTasksChart: {
-        data: {
-          labels: ["12am", "3pm", "6pm", "9pm", "12pm", "3am", "6am", "9am"],
-          series: [[230, 750, 450, 300, 280, 240, 200, 190]]
-        },
-
-        options: {
-          lineSmooth: this.$Chartist.Interpolation.cardinal({
-            tension: 0
-          }),
-          low: 0,
-          high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-          chartPadding: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0
-          }
-        }
-      },
-      emailsSubscriptionChart: {
-        data: {
-          labels: [
-            "Ja",
-            "Fe",
-            "Ma",
-            "Ap",
-            "Mai",
-            "Ju",
-            "Jul",
-            "Au",
-            "Se",
-            "Oc",
-            "No",
-            "De"
-          ],
-          series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]]
+          labels: labels,
+          series: [values]
         },
         options: {
           axisX: {
             showGrid: false
           },
-          low: 0,
-          high: 1000,
+          low,
+          high,
           chartPadding: {
             top: 0,
             right: 5,
             bottom: 0,
             left: 0
           }
+        }
+      };
+    },
+    dailyBookingPaymentChart() {
+      const values = this.stats.dailyBookingPayment.map(d => d.amount);
+      const labels = this.stats.dailyBookingPayment.map(
+        d => this.weekdayMapping[d.day]
+      );
+      const high = Math.max(...values) * 1.05;
+      const low = Math.min(...values) * 0.95;
+      return {
+        data: {
+          labels: labels,
+          series: [values]
         },
-        responsiveOptions: [
-          [
-            "screen and (max-width: 640px)",
-            {
-              seriesBarDistance: 5,
-              axisX: {
-                labelInterpolationFnc: function(value) {
-                  return value[0];
-                }
-              }
-            }
-          ]
-        ]
-      }
-    };
+        options: {
+          axisX: {
+            showGrid: false
+          },
+          low,
+          high,
+          chartPadding: {
+            top: 0,
+            right: 5,
+            bottom: 0,
+            left: 10
+          }
+        }
+      };
+    },
+    dailyDepositPaymentChart() {
+      const values = this.stats.dailyDepositPayment.map(d => d.amount);
+      const labels = this.stats.dailyDepositPayment.map(
+        d => this.weekdayMapping[d.day]
+      );
+      const high = Math.max(...values) * 1.05;
+      const low = Math.min(...values) * 0.95;
+      return {
+        data: {
+          labels: labels,
+          series: [values]
+        },
+        options: {
+          axisX: {
+            showGrid: false
+          },
+          low,
+          high,
+          chartPadding: {
+            top: 0,
+            right: 5,
+            bottom: 0,
+            left: 10
+          }
+        }
+      };
+    }
+  },
+  mounted() {
+    this.updateStats();
+  },
+  watch: {
+    date() {
+      this.updateStats();
+      // console.log(this.stats);
+    }
   }
 };
 </script>
