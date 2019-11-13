@@ -369,7 +369,7 @@ let authPages = {
 const routes = [
   {
     path: "/",
-    redirect: "/booking",
+    redirect: "/dashboard",
     name: "Home"
   },
   componentsMenu,
