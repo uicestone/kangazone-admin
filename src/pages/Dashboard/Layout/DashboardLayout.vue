@@ -16,6 +16,10 @@
       <!-- <mobile-menu></mobile-menu> -->
       <template slot="links">
         <sidebar-item
+          :link="{ name: '数据统计', icon: 'dashboard', path: '/dashboard' }"
+        >
+        </sidebar-item>
+        <sidebar-item
           :link="{ name: '预约管理', icon: 'access_time', path: '/booking' }"
         >
         </sidebar-item>
@@ -37,10 +41,6 @@
         </sidebar-item>
         <sidebar-item
           :link="{ name: '系统配置', icon: 'settings', path: '/config' }"
-        >
-        </sidebar-item>
-        <sidebar-item
-          :link="{ name: '数据统计', icon: 'dashboard', path: '/dashboard' }"
         >
         </sidebar-item>
       </template>

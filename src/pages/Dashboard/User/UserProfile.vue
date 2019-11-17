@@ -12,7 +12,14 @@
             <div class="card-icon">
               <md-icon>history</md-icon>
             </div>
-            <h4 class="title">最近预约</h4>
+            <h4 class="title">
+              最近预约
+              <md-button
+                @click="goCustomerBookings"
+                class="md-warning md-sm pull-right"
+                >查看所有预约</md-button
+              >
+            </h4>
           </md-card-header>
 
           <md-card-content class="md-layout">
@@ -156,6 +163,9 @@ export default {
       if (this.$route.params.id === "add") {
         this.$router.replace(`/user/${this.user.id}`);
       }
+    },
+    goCustomerBookings() {
+      this.$router.push(`/booking?customer=${this.user.id}`);
     }
   },
   async mounted() {

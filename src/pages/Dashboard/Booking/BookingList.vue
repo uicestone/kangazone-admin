@@ -49,7 +49,10 @@
                 </md-select>
               </md-field>
 
-              <md-field class="md-layout-item md-size-15 md-xsmall-size-100">
+              <md-field
+                v-if="!searchQuery.customer"
+                class="md-layout-item md-size-15 md-xsmall-size-100"
+              >
                 <label>搜索客户</label>
                 <md-input
                   type="search"
@@ -190,6 +193,7 @@ export default {
     Pagination
   },
   data() {
+    const customer = this.$route.query.customer;
     return {
       currentSort: "createdAt",
       currentSortOrder: "desc",
@@ -199,7 +203,8 @@ export default {
         total: 0
       },
       searchQuery: {
-        date: moment().format("YYYY-MM-DD")
+        date: customer ? null : moment().format("YYYY-MM-DD"),
+        customer
       },
       searchDelayTimeout: null,
       queriedData: [],

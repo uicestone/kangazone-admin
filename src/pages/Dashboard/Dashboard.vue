@@ -14,7 +14,12 @@
           </span>
           前一天</md-button
         >
-        <md-button class="md-info" style="flex:0" @click="addDate(1)" :disabled="date >= today">
+        <md-button
+          class="md-info"
+          style="flex:0"
+          @click="addDate(1)"
+          :disabled="date >= today"
+        >
           后一天
           <md-icon>keyboard_arrow_right</md-icon>
         </md-button>
@@ -133,7 +138,7 @@
         <template slot="footer">
           <div class="stats">
             <md-icon>access_time</md-icon>
-            刚刚更新
+            实时
           </div>
         </template>
       </chart-card>
@@ -172,7 +177,7 @@
         <template slot="footer">
           <div class="stats">
             <md-icon>access_time</md-icon>
-            刚刚更新
+            实时
           </div>
         </template>
       </chart-card>
@@ -207,7 +212,7 @@
         <template slot="footer">
           <div class="stats">
             <md-icon>access_time</md-icon>
-            刚刚更新
+            实时
           </div>
         </template>
       </chart-card>
@@ -227,7 +232,7 @@
               <md-table v-model="paidAmountByGatewayNames">
                 <md-table-row slot="md-table-row" slot-scope="{ item }">
                   <md-table-cell>{{ item.name }}</md-table-cell>
-                  <md-table-cell>{{ item.amount }}</md-table-cell>
+                  <md-table-cell>{{ item.amount | currency }}</md-table-cell>
                 </md-table-row>
               </md-table>
             </div>
