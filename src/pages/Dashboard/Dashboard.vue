@@ -259,6 +259,7 @@
                 <md-table-row slot="md-table-row" slot-scope="{ item }">
                   <md-table-cell>{{ item.name }}</md-table-cell>
                   <md-table-cell>{{ item.count }}</md-table-cell>
+                  <md-table-cell>{{ item.amount | currency }}</md-table-cell>
                 </md-table-row>
               </md-table>
             </div>

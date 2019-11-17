@@ -100,14 +100,15 @@ Object.defineProperty(Vue.prototype, "$bookingStatusNames", {
 Object.defineProperty(Vue.prototype, "$gatewayNames", {
   get() {
     return {
-      credit: "余额支付",
-      code: "券码支付",
-      scan: "扫码支付",
-      card: "刷卡支付",
-      cash: "现金支付",
-      wechatpay: "微信支付",
+      credit: "充值余额",
+      code: "次卡券码",
+      coupon: "团购优惠券",
+      scan: "现场扫码",
+      card: "现场刷卡",
+      cash: "现场现金",
+      wechatpay: "微信小程序",
       alipay: "支付宝",
-      unionpay: "银联支付"
+      unionpay: "银联"
     };
   }
 });
