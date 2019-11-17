@@ -23,10 +23,10 @@
           :link="{ name: '用户管理', icon: 'people', path: '/user' }"
         >
         </sidebar-item>
-        <sidebar-item
+        <!-- <sidebar-item
           :link="{ name: '券码管理', icon: 'style', path: '/code' }"
         >
-        </sidebar-item>
+        </sidebar-item> -->
         <sidebar-item
           :link="{ name: '流水明细', icon: 'payment', path: '/payment' }"
         >
