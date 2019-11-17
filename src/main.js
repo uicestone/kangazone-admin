@@ -101,6 +101,7 @@ Object.defineProperty(Vue.prototype, "$gatewayNames", {
   get() {
     return {
       credit: "余额支付",
+      code: "券码支付",
       scan: "扫码支付",
       card: "刷卡支付",
       cash: "现金支付",

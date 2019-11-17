@@ -22,12 +22,11 @@
             <div
               class="md-layout md-layout-item md-alignment-center-right search-query"
             >
-              <md-field class="md-layout-item md-size-20 md-xsmall-size-100">
+              <md-field class="md-layout-item md-size-25 md-xsmall-size-100">
                 <md-input
                   type="search"
                   clearable
-                  placeholder="搜索"
-                  style="width: 200px;"
+                  placeholder="搜索 手机 / 会员卡 / 姓名"
                   v-model="searchQuery.keyword"
                 >
                 </md-input>
