@@ -69,6 +69,18 @@
               <md-input v-model="user.region" type="text"></md-input>
             </md-field>
           </div>
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+              <label>生日</label>
+              <md-input v-model="user.birthday" type="text"></md-input>
+            </md-field>
+          </div>
+          <div class="md-layout-item md-small-size-100 md-size-50">
+            <md-field>
+              <label>星座</label>
+              <md-input v-model="user.constellation" type="text"></md-input>
+            </md-field>
+          </div>
           <!-- <div
             v-if="user.role === 'customer'"
             class="md-layout-item md-small-size-100 md-size-50"
@@ -133,6 +145,12 @@
             <md-field>
               <label>通行证</label>
               <md-input v-model="user.passNo" />
+            </md-field>
+          </div>
+          <div class="md-layout-item md-size-100">
+            <md-field>
+              <label>身份证号</label>
+              <md-input v-model="user.idCardNo" />
             </md-field>
           </div>
         </div>
