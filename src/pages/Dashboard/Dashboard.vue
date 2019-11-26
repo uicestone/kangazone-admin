@@ -217,13 +217,13 @@
         </template>
       </chart-card>
     </div>
-    <div class="md-layout-item md-size-50">
+    <div class="md-layout-item md-size-33">
       <global-sales-card header-color="primary">
         <template slot="header">
           <div class="card-icon">
             <md-icon>language</md-icon>
           </div>
-          <h4 class="title">当日按收款方式收入额</h4>
+          <h4 class="title">当日各收款方式收款额</h4>
         </template>
 
         <template slot="content">
@@ -243,13 +243,13 @@
         </template>
       </global-sales-card>
     </div>
-    <div class="md-layout-item md-size-50">
-      <global-sales-card header-color="warning">
+    <div class="md-layout-item md-size-33">
+      <global-sales-card header-color="green">
         <template slot="header">
           <div class="card-icon">
             <md-icon>language</md-icon>
           </div>
-          <h4 class="title">当日按优惠核销人数</h4>
+          <h4 class="title">当日各优惠核销人数和券值</h4>
         </template>
 
         <template slot="content">
@@ -260,6 +260,35 @@
                   <md-table-cell>{{ item.name }}</md-table-cell>
                   <md-table-cell>{{ item.count }}</md-table-cell>
                   <md-table-cell>{{ item.amount | currency }}</md-table-cell>
+                </md-table-row>
+              </md-table>
+            </div>
+            <!-- <div class="md-layout-item md-size-50">
+              <async-world-map class="map" :data="mapData"></async-world-map>
+            </div> -->
+          </div>
+        </template>
+      </global-sales-card>
+    </div>
+    <div class="md-layout-item md-size-33">
+      <global-sales-card header-color="warning">
+        <template slot="header">
+          <div class="card-icon">
+            <md-icon>language</md-icon>
+          </div>
+          <h4 class="title">当日各卡种充值人数和金额</h4>
+        </template>
+
+        <template slot="content">
+          <div class="md-layout">
+            <div class="md-layout-item md-size-100">
+              <md-table v-model="stats.depositsCount">
+                <md-table-row slot="md-table-row" slot-scope="{ item }">
+                  <md-table-cell>{{ item.desc }}</md-table-cell>
+                  <md-table-cell>{{ item.count }}</md-table-cell>
+                  <md-table-cell>{{
+                    (item.price * item.count) | currency
+                  }}</md-table-cell>
                 </md-table-row>
               </md-table>
             </div>
@@ -455,7 +484,10 @@ export default {
     this.updateStats();
   },
   watch: {
-    date() {
+    date(val) {
+      if (!val) {
+        this.date = moment().format("YYYY-MM-DD");
+      }
       this.updateStats();
       // console.log(this.stats);
     }
