@@ -56,6 +56,20 @@
                   <md-option value="deposit">充值</md-option>
                 </md-select>
               </md-field>
+              <md-field
+                class="md-layout-item md-size-20 md-xsmall-size-100"
+                v-if="searchQuery.role === 'customer'"
+              >
+                <label>会员等级</label>
+                <md-select v-model="searchQuery.cardTypes" multiple>
+                  <md-option
+                    v-for="level in $config.depositLevels"
+                    :key="level.slug"
+                    :value="level.cardType"
+                    >{{ level.cardType }}</md-option
+                  >
+                </md-select>
+              </md-field>
             </div>
             <div class="toolbar-actions">
               <md-button class="md-primary" @click="showCreate">
