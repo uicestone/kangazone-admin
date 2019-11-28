@@ -24,6 +24,14 @@
           <md-icon>keyboard_arrow_right</md-icon>
         </md-button>
       </div>
+      <div class="md-layout-item md-size-10 md-xsmall-size-100">
+        <md-button
+          :href="$http.options.root + 'daily-report/' + date"
+          class="md-info"
+          style="width:100%"
+          >下载日报表</md-button
+        >
+      </div>
     </div>
     <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
       <stats-card header-color="primary">
@@ -363,9 +371,9 @@ export default {
         .format("YYYY-MM-DD");
     },
     async updateStats() {
-      this.stats = (await this.$http.get(
-        `stats${this.date ? "/" + this.date : ""}`
-      )).body;
+      this.stats = (
+        await this.$http.get(`stats${this.date ? "/" + this.date : ""}`)
+      ).body;
     }
   },
   computed: {
