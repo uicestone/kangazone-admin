@@ -41,7 +41,7 @@
           </div>
           <p class="category">当日门票收入</p>
           <h3 class="title">
-            ¥ <animated-number :value="stats.paidAmount"></animated-number>
+            ¥ <animated-number :value="stats.paidAmount - stats.socksAmount"></animated-number>
           </h3>
         </template>
 
