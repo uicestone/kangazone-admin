@@ -36,7 +36,7 @@
         :to="link.path"
         @click.native="linkClick"
         :is="elementType(link, false)"
-        :class="{ active: link.active }"
+        :class="{ active: link.active || isActive }"
         class="nav-link"
         :target="link.target"
         :href="link.path"
@@ -112,9 +112,12 @@ export default {
     },
     isActive() {
       if (this.$route && this.$route.path) {
-        let matchingRoute = this.children.find(c =>
-          this.$route.path.startsWith(c.link.path)
-        );
+        if (this.$route.path.startsWith(this.link.path)) {
+          return true;
+        }
+        let matchingRoute = this.children.find(c => {
+          return this.$route.path.startsWith(c.link.path);
+        });
         if (matchingRoute !== undefined) {
           return true;
         }
