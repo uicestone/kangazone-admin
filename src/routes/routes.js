@@ -5,60 +5,76 @@ import AuthLayout from "@/pages/Dashboard/Pages/AuthLayout.vue";
 import Dashboard from "@/pages/Dashboard/Dashboard.vue";
 
 // Pages
-const User = () => import("@/pages/Dashboard/User/UserProfile.vue");
-const UserList = () => import("@/pages/Dashboard/User/UserList.vue");
-const Booking = () => import("@/pages/Dashboard/Booking/BookingDetail.vue");
-const BookingList = () => import("@/pages/Dashboard/Booking/BookingList.vue");
-// const Code = () => import("@/pages/Dashboard/Code/CodeDetail.vue");
-const CodeList = () => import("@/pages/Dashboard/Code/CodeList.vue");
-// const Payment = () => import("@/pages/Dashboard/Payment/PaymentDetail.vue");
-const PaymentList = () => import("@/pages/Dashboard/Payment/PaymentList.vue");
-// const Store = () => import("@/pages/Dashboard/Store/StoreDetail.vue");
-const StoreList = () => import("@/pages/Dashboard/Store/StoreList.vue");
-const ConfigList = () => import("@/pages/Dashboard/Config/ConfigList.vue");
-const Config = () => import("@/pages/Dashboard/Config/Config.vue");
-const Pricing = () => import("@/pages/Dashboard/Pages/Pricing.vue");
-const TimeLine = () => import("@/pages/Dashboard/Pages/TimeLinePage.vue");
-const RtlSupport = () => import("@/pages/Dashboard/Pages/RtlSupport.vue");
-const Login = () => import("@/pages/Dashboard/Pages/Login.vue");
-const Register = () => import("@/pages/Dashboard/Pages/Register.vue");
-const Lock = () => import("@/pages/Dashboard/Pages/Lock.vue");
+const User = () => require("@/pages/Dashboard/User/UserProfile.vue").default;
+const UserList = () => require("@/pages/Dashboard/User/UserList.vue").default;
+const Booking = () =>
+  require("@/pages/Dashboard/Booking/BookingDetail.vue").default;
+const BookingList = () =>
+  require("@/pages/Dashboard/Booking/BookingList.vue").default;
+// const Code = () => require("@/pages/Dashboard/Code/CodeDetail.vue").default;
+const CodeList = () => require("@/pages/Dashboard/Code/CodeList.vue").default;
+// const Payment = () => require("@/pages/Dashboard/Payment/PaymentDetail.vue").default;
+const PaymentList = () =>
+  require("@/pages/Dashboard/Payment/PaymentList.vue").default;
+// const Store = () => require("@/pages/Dashboard/Store/StoreDetail.vue").default;
+const StoreList = () =>
+  require("@/pages/Dashboard/Store/StoreList.vue").default;
+const ConfigList = () =>
+  require("@/pages/Dashboard/Config/ConfigList.vue").default;
+const Config = () => require("@/pages/Dashboard/Config/Config.vue").default;
+const Pricing = () => require("@/pages/Dashboard/Pages/Pricing.vue").default;
+const TimeLine = () =>
+  require("@/pages/Dashboard/Pages/TimeLinePage.vue").default;
+const RtlSupport = () =>
+  require("@/pages/Dashboard/Pages/RtlSupport.vue").default;
+const Login = () => require("@/pages/Dashboard/Pages/Login.vue").default;
+const Register = () => require("@/pages/Dashboard/Pages/Register.vue").default;
+const Lock = () => require("@/pages/Dashboard/Pages/Lock.vue").default;
 
 // Components pages
-const Buttons = () => import("@/pages/Dashboard/Components/Buttons.vue");
-const GridSystem = () => import("@/pages/Dashboard/Components/GridSystem.vue");
-const Panels = () => import("@/pages/Dashboard/Components/Panels.vue");
-const SweetAlert = () => import("@/pages/Dashboard/Components/SweetAlert.vue");
+const Buttons = () =>
+  require("@/pages/Dashboard/Components/Buttons.vue").default;
+const GridSystem = () =>
+  require("@/pages/Dashboard/Components/GridSystem.vue").default;
+const Panels = () => require("@/pages/Dashboard/Components/Panels.vue").default;
+const SweetAlert = () =>
+  require("@/pages/Dashboard/Components/SweetAlert.vue").default;
 const Notifications = () =>
-  import("@/pages/Dashboard/Components/Notifications.vue");
-const Icons = () => import("@/pages/Dashboard/Components/Icons.vue");
-const Typography = () => import("@/pages/Dashboard/Components/Typography.vue");
+  require("@/pages/Dashboard/Components/Notifications.vue").default;
+const Icons = () => require("@/pages/Dashboard/Components/Icons.vue").default;
+const Typography = () =>
+  require("@/pages/Dashboard/Components/Typography.vue").default;
 
 // Forms pages
-const RegularForms = () => import("@/pages/Dashboard/Forms/RegularForms.vue");
-const ExtendedForms = () => import("@/pages/Dashboard/Forms/ExtendedForms.vue");
+const RegularForms = () =>
+  require("@/pages/Dashboard/Forms/RegularForms.vue").default;
+const ExtendedForms = () =>
+  require("@/pages/Dashboard/Forms/ExtendedForms.vue").default;
 const ValidationForms = () =>
-  import("@/pages/Dashboard/Forms/ValidationForms.vue");
-const Wizard = () => import("@/pages/Dashboard/Forms/Wizard.vue");
+  require("@/pages/Dashboard/Forms/ValidationForms.vue").default;
+const Wizard = () => require("@/pages/Dashboard/Forms/Wizard.vue").default;
 
 // TableList pages
 const RegularTables = () =>
-  import("@/pages/Dashboard/Tables/RegularTables.vue");
+  require("@/pages/Dashboard/Tables/RegularTables.vue").default;
 const ExtendedTables = () =>
-  import("@/pages/Dashboard/Tables/ExtendedTables.vue");
+  require("@/pages/Dashboard/Tables/ExtendedTables.vue").default;
 const PaginatedTables = () =>
-  import("@/pages/Dashboard/Tables/PaginatedTables.vue");
+  require("@/pages/Dashboard/Tables/PaginatedTables.vue").default;
 
 // Maps pages
-const GoogleMaps = () => import("@/pages/Dashboard/Maps/GoogleMaps.vue");
-const FullScreenMap = () => import("@/pages/Dashboard/Maps/FullScreenMap.vue");
-const VectorMaps = () => import("@/pages/Dashboard/Maps/VectorMaps.vue");
+const GoogleMaps = () =>
+  require("@/pages/Dashboard/Maps/GoogleMaps.vue").default;
+const FullScreenMap = () =>
+  require("@/pages/Dashboard/Maps/FullScreenMap.vue").default;
+const VectorMaps = () =>
+  require("@/pages/Dashboard/Maps/VectorMaps.vue").default;
 
 // Calendar
-const Calendar = () => import("@/pages/Dashboard/Calendar.vue");
+const Calendar = () => require("@/pages/Dashboard/Calendar.vue").default;
 // Charts
-const Charts = () => import("@/pages/Dashboard/Charts.vue");
-const Widgets = () => import("@/pages/Dashboard/Widgets.vue");
+const Charts = () => require("@/pages/Dashboard/Charts.vue").default;
+const Widgets = () => require("@/pages/Dashboard/Widgets.vue").default;
 
 let componentsMenu = {
   path: "/components",
