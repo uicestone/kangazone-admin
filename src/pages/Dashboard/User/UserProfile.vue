@@ -177,7 +177,7 @@ export default {
       }
       this.depositPayments = (await Payment.get({
         customer: this.user.id,
-        attach: "deposit "
+        attach: "deposit"
       })).body;
       this.userBookings = (await Booking.get({ customer: this.user.id })).body;
     }
