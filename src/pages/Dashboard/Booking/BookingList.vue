@@ -225,6 +225,13 @@ export default {
           : undefined
       };
 
+      if (
+        searchQuery.customerKeyword &&
+        searchQuery.customerKeyword.length < 4
+      ) {
+        delete searchQuery.customerKeyword;
+      }
+
       for (let field in searchQuery) {
         if (Array.isArray(searchQuery[field])) {
           searchQuery[field] = searchQuery[field].join(",");

@@ -25,6 +25,7 @@
               <md-field class="md-layout-item md-size-25 md-xsmall-size-100">
                 <md-input
                   type="search"
+                  min-length="4"
                   clearable
                   placeholder="搜索 手机 / 会员卡 / 姓名"
                   v-model="searchQuery.keyword"
@@ -178,13 +179,20 @@ export default {
   },
   computed: {
     query() {
-      return Object.assign({}, this.searchQuery, {
+      const searchQuery = {
+        ...this.searchQuery,
         limit: this.pagination.perPage,
         skip: (this.pagination.currentPage - 1) * this.pagination.perPage,
         order: this.currentSort
           ? `${this.currentSortOrder === "desc" ? "-" : ""}${this.currentSort}`
           : undefined
-      });
+      };
+
+      if (searchQuery.keyword && searchQuery.keyword.length < 4) {
+        delete searchQuery.keyword;
+      }
+
+      return searchQuery;
     },
     from() {
       return Math.min(
