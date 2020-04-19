@@ -124,7 +124,7 @@
                 :disabled="!$user.can('manage-user')"
               >
                 <md-option value="admin">管理员</md-option>
-                <md-option value="manager">店长</md-option>
+                <md-option value="manager">店员</md-option>
                 <md-option value="customer">客人</md-option>
               </md-select>
             </md-field>
@@ -228,11 +228,13 @@ export default {
     async uploadImage(file) {
       const formData = new FormData();
       formData.append("file", file);
-      const fileObject = (await this.$http.post("file", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      })).body;
+      const fileObject = (
+        await this.$http.post("file", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+      ).body;
       this.user.avatarUri = fileObject.uri;
       this.user.avatarUrl = fileObject.url;
       this.$user.avatarUrl = fileObject.url;

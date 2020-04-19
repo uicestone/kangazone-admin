@@ -249,7 +249,7 @@ export default {
     roleName(role) {
       const roleName = {
         admin: "管理员",
-        manager: "店长",
+        manager: "店员",
         customer: "客人"
       };
       return roleName[role];
