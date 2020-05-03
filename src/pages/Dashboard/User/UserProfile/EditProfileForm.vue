@@ -143,7 +143,7 @@
             class="md-layout-item md-small-size-100 md-size-50"
           >
             <md-field>
-              <label>通行证</label>
+              <label>通行证 (ID: {{ user.passNo8 }})</label>
               <md-input v-model="user.passNo" />
             </md-field>
           </div>
